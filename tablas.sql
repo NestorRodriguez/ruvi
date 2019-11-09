@@ -8,7 +8,7 @@ descripcion varchar(20) not null
 );
 
 insert into roles (descripcion)
-values('IPES'),('alcaldias locales'),('usuario');
+values('IPES'),('Alcaldias Locales'),('Usuario');
 
 select * from roles;
 
@@ -20,17 +20,17 @@ registro_rivi varchar(20)
 );
 
 insert into registro_documento (tipo_documento, numero_documento, registro_rivi)
-values('cedula de ciudadania','436272844','si'),
-      ('cedula de extranjeria','988494','no'),
-      ('cedula de ciudadania','80876543','si'),
-      ('cedula de ciudadania','41657874','no'),
-      ('cedula de ciudadania','10234567','si'),
-      ('cedula de extranjeria','23456764','no'),
-      ('cedula de extranjeria','36272844','no');
+values('Cedula de Ciudadania','436272844','Si'),
+      ('Cedula de Extranjeria','988494','No'),
+      ('Cedula de Ciudadania','80876543','Si'),
+      ('Cedula de Ciudadania','41657874','No'),
+      ('Cedula de Ciudadania','10234567','Si'),
+      ('Cedula de Extranjeria','23456764','No'),
+      ('Cedula de Extranjeria','36272844','No');
  
 select * from datos_personales;
 
-create table datos_personales(
+create table usuario(
 id_datos int not null primary key auto_increment,
 nombres varchar(50) not null,
 apellidos varchar (50) not null,
@@ -41,26 +41,42 @@ telefono float not null,
 correo varchar(50),
 discapacidad varchar(20),
 desplazado varchar(20),
+usuario varchar(100) not null,
+contraseña varchar(100) not null,
 id_rol int not null,
 foreign key (id_rol) references roles(id_rol)
 );
 
-select * from datos_personales;
+CREATE PROCEDURE `guardar datos` (IN nombres varchar(50), apellidos varchar(50), edad varchar(20), sexo varchar(20),
+  OUT id_datos INT)
+BEGIN
+SELECT
+  COUNT(*)
+INTO
+  id_datos
+FROM
+  usuario
+WHERE
+  cprincipal=nombres,apellidos,edad,sexo;
+END
 
-insert into datos_personales(nombres, apellidos, edad, sexo, direccion, telefono, correo, discapacidad, desplazado, id_rol)
-values('Carlos Antonio', 'Perez Ortiz','45 años','Masculino', 'calle 34 sur # 14-30', 3127645589, '', 'No', 'No', '3' ),
-	  ('Aldemar', 'Gutierez Ortiz','38 años','Masculino', 'carrera 134 b # 8-78', '3004352627', 'aldemarg@gmail.com', 'No', 'No', '3' ),
-      ('Miriam Camila', 'Lopez Ariel','58 años','Femenino', 'transversal 13 c # 88-78', '3157644689', '', 'No', 'Si', '3' ),
-      ('Luis Alberto', 'Collazos Rico','60 años','Masculino', 'diagonal 15 # 30-56 sur', '3054637234', '', 'No', 'No', '3' ),
-      ('Angi Maria', 'Solorsano Mendieta ','25 años','Femenino', 'calle 68 sur # 10-15', '3224536470', '', 'No', 'No', '2' ),
-      ('Santiago Jose', 'Triana Uribe','45 años','Masculino', 'calle 34 sur # 14-30', '3176454589', '', 'No', 'No', '1' ),
-      ('Wilber Stew', 'Torres Prieto','37 años','Masculino', 'diagonal 34 b # 76-89', '3127645589', '', 'No', 'No', '3' ),
-      ('Jasinto Jose', 'Pulido Urrego','62 años','Masculino', 'calle 31 h # 51-87', '3216445759', '', 'Si', 'Si', '3' );
+select * from usuario;
+
+insert into usuario(nombres, apellidos, edad, sexo, direccion, telefono, correo, discapacidad, desplazado, usuario, contraseña, id_rol)
+values('Carlos Antonio','Perez Ortiz','45','Masculino', 'calle 34 sur # 14-30','3127645589','poi','No','No','capo','12345','3' ),
+	  ('Aldemar', 'Gutierez Ortiz','38 años','Masculino', 'carrera 134 b # 8-78', '3004352627', 'aldemarg@gmail.com', 'No', 'No', 'ago', '12345', '3' ),
+      ('Miriam Camila', 'Lopez Ariel','58 años','Femenino', 'transversal 13 c # 88-78', '3157644689', '', 'No', 'Si', 'mmla', '12345','3' ),
+      ('Luis Alberto', 'Collazos Rico','60 años','Masculino', 'diagonal 15 # 30-56 sur', '3054637234', '', 'No', 'No', 'lacr', '12345','3' ),
+      ('Angi Maria', 'Solorsano Mendieta ','25 años','Femenino', 'calle 68 sur # 10-15', '3224536470', '', 'No', 'No', 'amsm', '12345', '2' ),
+      ('Santiago Jose', 'Triana Uribe','45 años','Masculino', 'calle 34 sur # 14-30', '3176454589', '', 'No', 'No', 'sjtu', '12345','1' ),
+      ('Wilber Stew', 'Torres Prieto','37 años','Masculino', 'diagonal 34 b # 76-89', '3127645589', '', 'No', 'No', 'wstp', '12345', '3' ),
+      ('Jasinto Jose', 'Pulido Urrego','62 años','Masculino', 'calle 31 h # 51-87', '3216445759', '', 'Si', 'Si', 'jjpu', '12345', '3' );
 
 create table niveles_educacion(
 id_niveledu int not null primary key auto_increment,
 descripcion varchar (50) not null
-);
+)
+
 
 
 insert into niveles_educacion(descripcion)
@@ -132,7 +148,7 @@ select * from sitio_labor_informal;
 create table guardar_registro (
  id_guardar_registro int not null primary key auto_increment,
  id_registrodoc int not null,
- id_datos int not null, 
+ id_datos int not null unique, 
  id_niveledu int not null,
  id_nucleofam int not null,
  id_saludper int not null,
@@ -140,7 +156,7 @@ create table guardar_registro (
  id_tiempoinf int not null,
  id_sitioinf int not null,
  foreign key (id_registrodoc) references registro_documento (id_registrodoc),
- foreign key (id_datos) references datos_personales (id_datos),
+ foreign key (id_datos) references usuario (id_datos),
  foreign key (id_niveledu) references niveles_educacion (id_niveledu),
  foreign key (id_nucleofam) references nucleo_familiar (id_nucleofam),
  foreign key (id_saludper) references salud (id_saludper),
@@ -150,6 +166,6 @@ create table guardar_registro (
  );
  
 insert into guardar_registro(id_datos, id_niveledu, id_nucleofam, id_registrodoc, id_saludper, id_sitioinf, id_tiempoinf, id_viviendaper)
-values (''),(''),(''),(''),(''),(''),(''),('');
+values ('1','4','1','1','2','1','4','2');
 
 select * from guardar_registro;
