@@ -1,3 +1,4 @@
+drop database ruvi;
 create database ruvi;
 use ruvi;
 
@@ -28,7 +29,6 @@ values('Cedula de Ciudadania','436272844','Si'),
       ('Cedula de Extranjeria','23456764','No'),
       ('Cedula de Extranjeria','36272844','No');
  
-select * from datos_personales;
 
 create table usuario(
 id_datos int not null primary key auto_increment,
@@ -47,20 +47,21 @@ id_rol int not null,
 foreign key (id_rol) references roles(id_rol)
 );
 
-CREATE PROCEDURE `guardar datos` (IN nombres varchar(50), apellidos varchar(50), edad varchar(20), sexo varchar(20),
-  OUT id_datos INT)
-BEGIN
-SELECT
-  COUNT(*)
-INTO
-  id_datos
-FROM
-  usuario
-WHERE
-  cprincipal=nombres,apellidos,edad,sexo;
-END
+/*SP para guardar datos*/
+DROP PROCEDURE `guardar datos`;
 
-select * from usuario;
+DELIMITER $$
+CREATE PROCEDURE `guardar datos` (IN nombre varchar(50), IN apellido varchar(50), IN edad varchar(20), IN sexo varchar(20), IN direccion varchar(100), IN telefono float, IN usuario varchar(100), IN contrasena varchar(100), IN rol INT)
+BEGIN
+	insert into ruvi.usuario (nombres, apellidos, edad, sexo, direccion, telefono, usuario, contraseña, id_rol) 
+    values (nombre, apellido, edad, sexo, direccion, telefono, usuario, contrasena, rol);
+	SELECT * FROM usuario where nombres = nombre;
+END $$
+
+CALL `guardar datos`("Nestor Andres", "Rodriguez", "50", "No sabe", "Calle falsa # 123", 3123215578, "narodriguez", "1234", 1);
+
+/*FIN SP*/
+
 
 insert into usuario(nombres, apellidos, edad, sexo, direccion, telefono, correo, discapacidad, desplazado, usuario, contraseña, id_rol)
 values('Carlos Antonio','Perez Ortiz','45','Masculino', 'calle 34 sur # 14-30','3127645589','poi','No','No','capo','12345','3' ),
@@ -72,11 +73,12 @@ values('Carlos Antonio','Perez Ortiz','45','Masculino', 'calle 34 sur # 14-30','
       ('Wilber Stew', 'Torres Prieto','37 años','Masculino', 'diagonal 34 b # 76-89', '3127645589', '', 'No', 'No', 'wstp', '12345', '3' ),
       ('Jasinto Jose', 'Pulido Urrego','62 años','Masculino', 'calle 31 h # 51-87', '3216445759', '', 'Si', 'Si', 'jjpu', '12345', '3' );
 
+
+
 create table niveles_educacion(
 id_niveledu int not null primary key auto_increment,
 descripcion varchar (50) not null
-)
-
+);
 
 
 insert into niveles_educacion(descripcion)
