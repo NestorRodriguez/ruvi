@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button routerLink="/niveles-educacion" routersDirection="back">
+                <!--  enrutar a la otra vista -->
+                <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title>Salud</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-radio-group>
+            <ion-item>
+                <ion-label position="floating">EPS
+                    <ion-text color="danger"></ion-text>
+                </ion-label>
+                <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Contributivo</ion-label>
+                <ion-radio slot="end" color="secondary"></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label>Subsidiado</ion-label>
+                <ion-radio slot="end" color="secondary"></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label>Ninguno</ion-label>
+                <ion-radio slot="end" color="secondary"></ion-radio>
+            </ion-item>
+        </ion-radio-group>
+    </ion-list>
+    <div>
+        <ion-button routerLink="/vivienda" routersDirection="forward">
+            Guardar
+        </ion-button>
+    </div>
+
+</ion-content>

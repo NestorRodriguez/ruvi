@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button routerLink="/login" routersDirection="back">
+                <!--  enrutar a la otra vista -->
+                <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Registro Documento</ion-title>
+    </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+
+    <ion-item>
+        <ion-label>Tipo de Documento</ion-label>
+        <ion-select interface="popover">
+            <ion-select-option value="nes">Cédula Ciudadania</ion-select-option>
+            <ion-select-option value="n64">Cédula Extranjeria</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+
+
+    <ion-item>
+        <ion-label position="floating">Numero de Documento</ion-label>
+        <ion-input type="number" value=""></ion-input>
+    </ion-item>
+
+
+
+    <ion-item>
+        <ion-label>Registrado RIVI</ion-label>
+        <ion-select interface="popover">
+            <ion-select-option value="nes">Si</ion-select-option>
+            <ion-select-option value="n64">No</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <div>
+        <ion-button routerLink="/datos-personales" routersDirection="forward">
+            Guardar
+        </ion-button>
+    </div>
+
+</ion-content>
