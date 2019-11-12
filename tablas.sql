@@ -1,12 +1,11 @@
+drop database ruvi;
 create database ruvi;
 use ruvi;
-drop database ruvi;
+
 
 create table roles( 
 id_rol int not null primary key auto_increment,
-descripcion varchar(20) not null
-);
-
+descripcion varchar(20) not null);
 
 insert into roles (descripcion)
 values('IPES'),('Alcaldias Locales'),('Usuario');
@@ -17,8 +16,7 @@ create table registro_documento(
 id_registrodoc int not null primary key auto_increment,
 tipo_documento varchar (30) not null,
 numero_documento int not null,
-registro_rivi varchar(20)
-);
+registro_rivi varchar(20));
 
 insert into registro_documento (tipo_documento, numero_documento, registro_rivi)
 values('Cedula de Ciudadania','436272844','Si'),
@@ -29,7 +27,6 @@ values('Cedula de Ciudadania','436272844','Si'),
       ('Cedula de Extranjeria','23456764','No'),
       ('Cedula de Extranjeria','36272844','No');
  
-select * from datos_personales;
 
 create table usuario(
 id_datos int not null primary key auto_increment,
@@ -48,8 +45,20 @@ id_rol int not null,
 foreign key (id_rol) references roles(id_rol)
 );
 
+/*SP para guardar datos*/
+DROP PROCEDURE `guardar datos`;
 
+DELIMITER $$
+CREATE PROCEDURE `guardar datos` (IN nombre varchar(50), IN apellido varchar(50), IN edad varchar(20), IN sexo varchar(20), IN direccion varchar(100), IN telefono float, IN usuario varchar(100), IN contrasena varchar(100), IN rol INT)
+BEGIN
+	insert into ruvi.usuario (nombres, apellidos, edad, sexo, direccion, telefono, usuario, contraseña, id_rol) 
+    values (nombre, apellido, edad, sexo, direccion, telefono, usuario, contrasena, rol);
+	SELECT * FROM usuario where nombres = nombre;
+END $$
 
+CALL `guardar datos`("Nestor Andres", "Rodriguez", "50", "No sabe", "Calle falsa # 123", 3123215578, "narodriguez", "1234", 1);
+
+/*FIN SP*/
 
 
 insert into usuario(nombres, apellidos, edad, sexo, direccion, telefono, correo, discapacidad, desplazado, usuario, contraseña, id_rol)
@@ -61,12 +70,13 @@ values('Carlos Antonio','Perez Ortiz','45','Masculino', 'calle 34 sur # 14-30','
       ('Santiago Jose', 'Triana Uribe','45 años','Masculino', 'calle 34 sur # 14-30', '3176454589', '', 'No', 'No', 'sjtu', '12345','1' ),
       ('Wilber Stew', 'Torres Prieto','37 años','Masculino', 'diagonal 34 b # 76-89', '3127645589', '', 'No', 'No', 'wstp', '12345', '3' ),
       ('Jasinto Jose', 'Pulido Urrego','62 años','Masculino', 'calle 31 h # 51-87', '3216445759', '', 'Si', 'Si', 'jjpu', '12345', '3' );
-select * from usuario;
+
+
+
 create table niveles_educacion(
 id_niveledu int not null primary key auto_increment,
 descripcion varchar (50) not null
 );
-
 
 
 insert into niveles_educacion(descripcion)
@@ -86,14 +96,11 @@ select * from nucleo_familiar;
 
 create table salud(
 id_saludper int not null primary key auto_increment,
-nombre_eps varchar (50),
 descripcion varchar(50)
 );
 
-insert into salud(nombre_eps,descripcion)
-values ('Capital Salud','Contributiva'),
-       ('Capital Salud','Subsidiada'),
-       ('','NInguno');
+insert into salud(descripcion)
+values ('EPS'),('Contributiva'),('Subsidiada'),('Ninguna');
 
 select * from salud;
 
@@ -114,7 +121,7 @@ descripcion varchar(50)
 );
 
 insert into tiempo_labor_informal(descripcion)
-values ('Menos de 1 año'),('2 años'),('3 años'),('5 años'),('10 años'),('Otro');
+values ('Menos de 1 año'),('1 a 2 años'),('3 a 5 años'),('5 a 10 años'),('Más de 10 años'),('Otro');
 
 select * from tiempo_labor_informal; 
  
