@@ -13,6 +13,8 @@ const routes: Routes = [
   { path: 'vivienda', loadChildren: './vivienda/vivienda.module#ViviendaPageModule' },
   { path: 'tiempo-labor', loadChildren: './tiempo-labor/tiempo-labor.module#TiempoLaborPageModule' },
   { path: 'sitio-labor', loadChildren: './sitio-labor/sitio-labor.module#SitioLaborPageModule' },
+  { path: 'menu', loadChildren: './menu/menu.module#MenuPageModule' },
+  { path: 'registro-usuario', loadChildren: './registro-usuario/registro-usuario.module#RegistroUsuarioPageModule' },
 ];
 
 @NgModule({
