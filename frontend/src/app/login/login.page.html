@@ -1,27 +1,27 @@
 <ion-content>
-
-    <ion-title>Login</ion-title>
-    <!-- cree los input usuarios y contraseña -->
-    <div class="lista">
-        <label class="item item-input">
+    <form (ngSubmit)="login(forma)" #forma="ngForm">
+        <ion-title>Login</ion-title>
+        <!-- cree los input usuarios y contraseña -->
+        <div class="lista">
+            <label class="item item-input">
          <span class= "input-label">Usuario</span>
-         <input type="text">   
+         <input type="text" required ngmodel #>   
         </label>
-        <label class="item item-input">
+            <label class="item item-input">
             <span class= "input-label">Contraseña</span>
             <input type="password">   
         </label>
-    </div>
+        </div>
 
-    <!-- cree los botones -->
-    <div>
-        <ion-button routerLink="/registro-documento" routersDirection="forward">
-            Ingresar
-        </ion-button>
-        <ion-button>
-            Registrarse
-        </ion-button>
-    </div>
-
+        <!-- cree los botones -->
+        <div>
+            <ion-button routerLink="/registro-documento" routersDirection="forward">
+                Ingresar
+            </ion-button>
+            <ion-button routerLink="/registro-usuario" routersDirection="forward">
+                Registrarse
+            </ion-button>
+        </div>
+    </form>
 
 </ion-content>

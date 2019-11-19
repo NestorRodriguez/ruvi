@@ -12,27 +12,36 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
+    <form (ngSubmit)="login(forma)" #forma="ngForm">
+        <ion-list>
 
-        <ion-item>
-            <ion-label position="floating">Dirección donde Labora Informalmente
-                <ion-text color="danger"></ion-text>
-            </ion-label>
-            <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">Producto que Comercializa
-                <ion-text color="danger"></ion-text>
-            </ion-label>
-            <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
-        </ion-item>
+            <ion-item>
+                <ion-label position="floating">Dirección donde Labora Informalmente
+                    <ion-text color="danger"></ion-text>
+                </ion-label>
+                <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Producto que Comercializa
+                    <ion-text color="danger"></ion-text>
+                </ion-label>
+                <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
+            </ion-item>
+            <ion-button (click)="pruebaboton();">enviar</ion-button>
 
-    </ion-list>
-    <div>
-        <ion-button routerLink="/" routersDirection="forward">
-            Guardar
-        </ion-button>
-    </div>
+        </ion-list>
 
+        <ion-card>
+
+            <ion-card-title>Foto</ion-card-title>
+
+            <img src="" />
+        </ion-card>
+        <div>
+            <ion-button routerLink="/menu" routersDirection="forward">
+                Guardar
+            </ion-button>
+        </div>
+    </form>
 
 </ion-content>

@@ -25,6 +25,16 @@ ion-content>ion-list {
     margin: 4vh 7vw 0vh 7vw;
 }
 
+ion-content>ion-card>ion-card-header {
+    background: #FFFFFF;
+    margin: 4vh 0vw 0vh 0vw;
+    padding: 40vh 0vw 0vh 0vw;
+}
+
+ion-content>ion-card> {
+    --background: var(--ion-color-secondary);
+}
+
 ion-content>div>ion-button {
     --border-radius: 7vw;
     --background: var(--ion-color-secondary);

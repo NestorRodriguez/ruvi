@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SitioLaborPage implements OnInit {
 
+  prueba : any;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  pruebaboton()
+  {
+    this.prueba="Hello"
+    console.log("Ingrese a pruebaboton");
   }
 
 }

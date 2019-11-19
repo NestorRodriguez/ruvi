@@ -1,4 +1,0 @@
-{
-  "users" : "SELECT * FROM `users`",
-  "profiles" : "SELECT * FROM `profiles` WHERE active = :active"
-}

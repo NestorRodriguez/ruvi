@@ -11,34 +11,32 @@
 </ion-header>
 <ion-content>
     <ion-list>
-        <ion-radio-group>
-            <ion-item>
-                <ion-label>Padre</ion-label>
-                <ion-radio slot="end" color="secondary"></ion-radio>
-            </ion-item>
-            <ion-item>
-                <ion-label>Madre</ion-label>
-                <ion-radio slot="end" color="secondary"></ion-radio>
-            </ion-item>
-            <ion-item>
-                <ion-label>Hermano(s)</ion-label>
-                <ion-radio slot="end" color="secondary"></ion-radio>
-            </ion-item>
-            <ion-item>
-                <ion-label>Esposo(a)</ion-label>
-                <ion-radio slot="end" color="secondary"></ion-radio>
-            </ion-item>
-            <ion-item>
-                <ion-label>Hijo(s)</ion-label>
-                <ion-radio slot="end" color="secondary"></ion-radio>
-            </ion-item>
+        <ion-item>
+            <ion-checkbox color="primary" slot="start"></ion-checkbox>
+            <ion-label>Padre</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-checkbox color="primary" slot="start"></ion-checkbox>
+            <ion-label>Madre</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-checkbox color="primary" slot="start"></ion-checkbox>
+            <ion-label>Hermano(a)</ion-label>
+        </ion-item>
+        <ion-item>
 
-
-        </ion-radio-group>
+            <ion-checkbox color="primary" slot="start"></ion-checkbox>
+            <ion-label>Esposo(a)</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-checkbox color="primary" slot="start"></ion-checkbox>
+            <ion-label>Hijo(a)</ion-label>
+        </ion-item>
     </ion-list>
     <div>
         <ion-button routerLink="/salud" routersDirection="forward">
             Guardar
         </ion-button>
     </div>
+
 </ion-content>
