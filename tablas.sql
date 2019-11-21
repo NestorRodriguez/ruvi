@@ -2,6 +2,9 @@ create database ruvi;
 use ruvi;
 drop database ruvi;
 
+/*Código que deben correr en workbeanch 8*/
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345';
+
 create table roles( 
 id_rol int not null primary key auto_increment,
 descripcion varchar(20) not null
@@ -19,13 +22,17 @@ nombre varchar (30) not null,
 apellido varchar (30) not null,
 edad varchar(20) not null,
 sexo varchar(20) not null,
-telefono float not null,
+telefono double not null,
 correo varchar(50) not null,
 usuario varchar(100) not null,
 contraseña varchar(100) not null,
 id_rol int not null,
 foreign key (id_rol) references roles(id_rol)
 );
+
+insert into registro_usuarios(nombre,apellido,edad,sexo,telefono,correo,usuario,contraseña,id_rol)
+values("Luis","Forero Torres","35","Masculino","3187809716","laforero1@misena.edu.co","laft","12345","1");
+
 select * from registro_usuarios;
 
 create table registro_documento(
@@ -53,7 +60,7 @@ apellidos varchar (50) not null,
 edad varchar(20) not null,
 sexo varchar(20) not null,
 direccion varchar(100) not null,
-telefono float not null,
+telefono double not null,
 correo varchar(50),
 discapacidad varchar(20),
 desplazado varchar(20)
@@ -72,12 +79,12 @@ values('Carlos Antonio','Perez Ortiz','45','Masculino', 'calle 34 sur # 14-30','
       ('Santiago Jose', 'Triana Uribe','45 años','Masculino', 'calle 34 sur # 14-30', '3176454589', '', 'No', 'No' ),
       ('Wilber Stew', 'Torres Prieto','37 años','Masculino', 'diagonal 34 b # 76-89', '3127645589', '', 'No', 'No' ),
       ('Jasinto Jose', 'Pulido Urrego','62 años','Masculino', 'calle 31 h # 51-87', '3216445759', '', 'Si', 'Si');
-select * from usuario;
+select * from usuario where telefono = 3127645589;
 /*SP para guardar datos*/
 DROP PROCEDURE `guardar datos`;
 
 DELIMITER $$
-CREATE PROCEDURE `guardar datos` (IN nombre varchar(50), IN apellido varchar(50), IN edad varchar(20), IN sexo varchar(20), IN direccion varchar(100), IN telefono float)
+CREATE PROCEDURE `guardar datos` (IN nombre varchar(50), IN apellido varchar(50), IN edad varchar(20), IN sexo varchar(20), IN direccion varchar(100), IN telefono double)
 BEGIN
 	insert into ruvi.usuario (nombres, apellidos, edad, sexo, direccion, telefono) 
     values (nombre, apellido, edad, sexo, direccion, telefono);
@@ -132,27 +139,27 @@ values('Propia'),('Arriendo'),('Otro');
 
 select * from vivienda;
 
-create table tiempo_labor_informal(
+create table tiempo_labor(
 id_tiempoinf int not null primary key auto_increment,
 descripcion varchar(50)
 
 );
 
-insert into tiempo_labor_informal(descripcion)
+insert into tiempo_labor(descripcion)
 values ('Menos de 1 año'),('2 años'),('3 años'),('5 años'),('10 años'),('Otro');
 
 select * from tiempo_labor_informal; 
  
 
  
-create table sitio_labor_informal(
+create table sitio_labor(
 id_sitioinf int not null primary key auto_increment,
 direccion varchar(100) not null,
 foto varchar(100) not null,
 producto varchar(50) not null
 );
 
-insert into sitio_labor_informal(direccion, foto, producto)
+insert into sitio_labor(direccion, foto, producto)
 values ('calle 16 # 6-66', '', 'Frutas'), 
        ('calle 22 # 7-15', '', 'Confiteria'),
        ('calle 13 # 8-10', '', 'Libros'),
@@ -161,7 +168,7 @@ values ('calle 16 # 6-66', '', 'Frutas'),
        ('calle 32 # 11-68', '', 'Bebidas Calientes'),
        ('carrera 5 # 40-20 sur', '', 'Obleas');
 
-select * from sitio_labor_informal;
+select * from sitio_labor;
 
 create table guardar_registro (
  id_guardar_registro int not null primary key auto_increment,
@@ -179,8 +186,8 @@ create table guardar_registro (
  foreign key (id_nucleofam) references nucleo_familiar (id_nucleofam),
  foreign key (id_saludper) references salud (id_saludper),
  foreign key (id_viviendaper) references vivienda (id_viviendaper),
- foreign key (id_tiempoinf) references tiempo_labor_informal (id_tiempoinf),
- foreign key (id_sitioinf) references sitio_labor_informal (id_sitioinf)
+ foreign key (id_tiempoinf) references tiempo_labor (id_tiempoinf),
+ foreign key (id_sitioinf) references sitio_labor (id_sitioinf)
  );
  
 insert into guardar_registro(id_datos, id_niveledu, id_nucleofam, id_registrodoc, id_saludper, id_sitioinf, id_tiempoinf, id_viviendaper)

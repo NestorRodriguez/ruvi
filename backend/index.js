@@ -21,7 +21,7 @@ const db = mysql.createConnection({
     user: "root",
     password: "12345",
     database: "ruvi",
-    port: 3306,
+    port: 3300,
     multipleStatements: true
 });
 
@@ -952,6 +952,193 @@ app.delete('/ruvi/salud/:id_saludper', (req, res) => {
     });
 });
 
+/*****
+ * 
+ MP_sitio_labor 
+ * 
+ ****/
+
+app.get('/ruvi/sitio-labor', (req, res) => {
+    console.log('Consultar datos del sitio donde labora');
+    var query = db.query('select *  from sitio_labor', (error, result) => {
+        try {
+            if (error) {
+                throw error;
+            } else {
+                console.log(result);
+                res.json(result)
+            }
+        } catch (error) {
+            res.json({ error: error.message })
+        }
+    });
+})
+app.get('/ruvi/sitio-labor/:id-sitioinf', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM sitio-labor WHERE id_sitioinf='${id}';`;
+        const query = db.query(sql, (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    const [data] = result;
+                    res.json(data)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
+            }
+        });
+    })
+    //Insertar datos 
+app.post('/ruvi/sitio-labor', (req, res) => {
+    const dato = {
+        direccion: req.body.direccion,
+        foto: req.body.foto,
+        producto: req.body.producto,
+    };
+
+    const sql = `INSERT INTO sitio-labor SET direccion='${dato.direccion}',
+                                                  foto='${dato.foto}',
+                                                  producto='${dato.producto}'`;
+
+    db.query(sql, (error, result) => {
+        if (error) {
+            res.json({ error: error })
+        } else {
+            res.json(result)
+        }
+    });
+})
+
+//Actualizar
+app.put('/ruvi/sitio-labor/:id', (req, res) => {
+    const id = req.params.id;
+
+    const dato = {
+        direccion: req.body.direccion,
+        foto: req.body.foto,
+        producto: req.body.producto,
+    };
+    let sets = [];
+    for (i in dato) {
+        if (dato[i] || dato[i] == 0) {
+            sets.push(`${i}='${dato[i]}'`);
+        }
+    }
+
+    const sql = `UPDATE sitio-labor SET ${sets.join(', ')} WHERE id_sitioinf='${id}';`;
+    console.log(sql);
+
+    db.query(sql, (error, result) => {
+        if (error) {
+            res.json({ error: error })
+        } else {
+            res.json(result)
+        }
+    });
+})
+app.delete('/ruvi/sitio-labor/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM sitio-labor WHERE id_sitioinf = '${id}';`;
+    const query = db.query(sql, (error, result) => {
+        try {
+            if (error) {
+                throw error;
+            } else {
+                res.json(result)
+            }
+        } catch (error) {
+            res.json({ error: error.message })
+        }
+    });
+});
+
+
+/*****
+ * 
+ MP_tiempo_labor 
+ * 
+ ****/
+app.get('/ruvi/tiempo-labor', (req, res) => { //COMO YO LO QUIERA LLAMAR
+    console.log('Consultar datos de  labor informal');
+    var query = db.query('select * from tiempo_labor', (error, result) => { //COMO ESTA EN LA BASE DE DATOS
+        try {
+            if (error) {
+                throw error;
+            } else {
+                console.log(result);
+                res.json(result)
+            }
+        } catch (error) {
+            res.json({ error: error.message })
+        }
+    });
+})
+app.get('/ruvi/tiempo-labor/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM tiempo_labor WHERE id_tiempoinf='${id}';`;
+        const query = db.query(sql, (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    const [data] = result;
+                    res.json(data)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
+            }
+        });
+    })
+    // crear
+app.post('/ruvi/tiempo-labor', (req, res) => {
+    const dato = req.body
+
+    const sql = `INSERT INTO tiempo_labor (descripcion)
+  values ('${dato.descripcion}')`;
+
+    db.query(sql, (error, result) => {
+        if (error) {
+            res.json({ error: error })
+        } else {
+            res.json(result)
+        }
+    });
+})
+app.put('/ruvi/tiempo-labor', (req, res) => {
+
+    const dato = req.body
+
+    const sql = `UPDATE tiempo_labor SET id_tiempoinf= '${dato.descripcion}'
+          WHERE id_tiempoinf= '${dato.descripcion}';`;
+
+    console.log(sql);
+
+    db.query(sql, (error, result) => {
+        if (error) {
+            res.json({ error: error })
+        } else {
+            res.json(result)
+        }
+    });
+})
+app.delete('/ruvi/tiempo-labor/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM tiempo_labor WHERE id_tiempoinf = '${id}';`;
+    const query = db.query(sql, (error, result) => {
+        try {
+            if (error) {
+                throw error;
+            } else {
+                res.json(result)
+            }
+        } catch (error) {
+            res.json({ error: error.message })
+        }
+    });
+});
 
 
 app.listen(PORT, function() {
