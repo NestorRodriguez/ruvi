@@ -53,73 +53,77 @@ MP_niveles_educacion
 Crear datos niveles de educación
 ***************************/
 
-
-app.get('/ruvi/niveles_educacion', (req, res) => {
-    console.log('Consultar datos de los niveles de educacion');
-    var query = db.query('select * from niveles_educacion', (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                res.json(result)
+// Manejo de rutas select niveles de educacion
+app.get('/ruvi/niveles-educacion', (req, res) => {
+        console.log('Consultar datos de los niveles de educacion');
+        var query = db.query('select * from niveles_educacion', (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
-app.get('/ruvi/niveles_educacion/:id_niveledu', (req, res) => {
-    const id_niveledu = req.params.id_niveledu;
-    const sql = `SELECT * FROM niveles_educacion WHERE id_niveledu='${id_niveledu}';`;
-    const query = db.query(sql, (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                const [data] = result;
-                res.json(data)
+        });
+    })
+    // Manejo de rutas select niveles de educacion id
+app.get('/ruvi/niveles-educacion/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM niveles_educacion WHERE id_niveledu='${id}';`;
+        const query = db.query(sql, (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    const [data] = result;
+                    res.json(data)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
-app.post('/ruvi/niveles_educacion', (req, res) => {
-    const dato = req.body
+        });
+    })
+    //Agregar niveles de educacion
+app.post('/ruvi/niveles-educacion', (req, res) => {
+        const dato = req.body
 
-    const sql = `INSERT INTO niveles_educacion (descripcion)
+        const sql = `INSERT INTO niveles_educacion (descripcion)
   values ('${dato.descripcion}')`;
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
-app.put('/ruvi/niveles_educacion', (req, res) => {
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Actualizar niveles de educacion
+app.put('/ruvi/niveles-educacion', (req, res) => {
 
-    const dato = req.body
+        const dato = req.body
 
-    const sql = `UPDATE niveles_educacion SET id_niveledu = '${dato.descripcion}'
+        const sql = `UPDATE niveles_educacion SET id_niveledu = '${dato.descripcion}'
           WHERE id_niveledu = '${dato.descripcion}';`;
 
-    console.log(sql);
+        console.log(sql);
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
-app.delete('/ruvi/niveles_educacion/:id_niveledu', (req, res) => {
-    const id_niveledu = req.params.id_niveledu;
-    const sql = `DELETE FROM niveles_educacion WHERE id_niveledu = '${id_niveledu}';`;
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    // Eliminar niveles de educacion
+app.delete('/ruvi/niveles-educacion/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM niveles_educacion WHERE id_niveledu = '${id}';`;
     const query = db.query(sql, (error, result) => {
         try {
             if (error) {
@@ -139,24 +143,26 @@ app.delete('/ruvi/niveles_educacion/:id_niveledu', (req, res) => {
  * 
  ********************/
 
-app.get('/ruvi/guardar_registro', (req, res) => {
-    console.log('Consultar datos guardar los registros');
-    var query = db.query('select * from guardar_registro', (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                res.json(result)
+// Manejo de rutas select guardar registro
+app.get('/ruvi/guardar-registro', (req, res) => {
+        console.log('Consultar datos guardar los registros');
+        var query = db.query('select * from guardar_registro', (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
-app.get('/ruvi/guardar_registro/:id_guardar_registro', (req, res) => {
-        const id_guardar_registro = req.params.id_guardar_registro;
-        const sql = `SELECT * FROM guardar_registro WHERE id_guardar_registro='${id_guardar_registro}';`;
+        });
+    })
+    // Manejo de rutas select guardar registros id
+app.get('/ruvi/guardar-registro/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM guardar_registro WHERE id_guardar_registro='${id}';`;
         const query = db.query(sql, (error, result) => {
             try {
                 if (error) {
@@ -171,8 +177,8 @@ app.get('/ruvi/guardar_registro/:id_guardar_registro', (req, res) => {
             }
         });
     })
-    //Insertar datos 
-app.post('/ruvi/guardar_registro', (req, res) => {
+    //Agregar  guardar registros 
+app.post('/ruvi/guardar-registro', (req, res) => {
     const dato = {
         id_registrodoc: req.body.id_registrodoc,
         id_datos: req.body.id_datos,
@@ -191,7 +197,7 @@ app.post('/ruvi/guardar_registro', (req, res) => {
                                                   id_saludper='${dato.id_saludper}',
                                                   id_viviendaper='${dato. id_viviendaper}',
                                                   id_tiempoinf='${dato. id_tiempoinf}',
-                                                  id_sitioinf='${dato. id_sitioinf}',`;
+                                                  id_sitioinf='${dato. id_sitioinf}'`;
 
     db.query(sql, (error, result) => {
         if (error) {
@@ -202,41 +208,42 @@ app.post('/ruvi/guardar_registro', (req, res) => {
     });
 })
 
-//Actualizar
-app.put('/ruvi/guardar_registro:id_guardar_registro', (req, res) => {
-    const id_guardar_registro = req.params.id_guardar_registro;
+//Actualizar guardar registro
+app.put('/ruvi/guardar-registro:id', (req, res) => {
+        const id = req.params.id;
 
-    const dato = {
-        id_registrodoc: req.body.id_registrodoc,
-        id_datos: req.body.id_datos,
-        id_niveledu: req.body.id_niveledu,
-        id_nucleofam: req.body.id_nucleofam,
-        id_saludper: req.body.id_saludper,
-        id_viviendaper: req.body.id_viviendaper,
-        id_tiempoinf: req.body.id_tiempoinf,
-        id_sitioinf: req.body.id_sitioinf,
-    };
-    let sets = [];
-    for (i in dato) {
-        if (dato[i] || dato[i] == 0) {
-            sets.push(`${i}='${dato[i]}'`);
+        const dato = {
+            id_registrodoc: req.body.id_registrodoc,
+            id_datos: req.body.id_datos,
+            id_niveledu: req.body.id_niveledu,
+            id_nucleofam: req.body.id_nucleofam,
+            id_saludper: req.body.id_saludper,
+            id_viviendaper: req.body.id_viviendaper,
+            id_tiempoinf: req.body.id_tiempoinf,
+            id_sitioinf: req.body.id_sitioinf,
+        };
+        let sets = [];
+        for (i in dato) {
+            if (dato[i] || dato[i] == 0) {
+                sets.push(`${i}='${dato[i]}'`);
+            }
         }
-    }
 
-    const sql = `UPDATE guardar_registro SET ${sets.join(', ')} WHERE id_guardar_registro='${id_guardar_registro}';`;
-    console.log(sql);
+        const sql = `UPDATE guardar_registro SET ${sets.join(', ')} WHERE id_guardar_registro='${id}';`;
+        console.log(sql);
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
-app.delete('/ruvi/guardar_registro/:id_guardar_registro', (req, res) => {
-    const id_guardar_registro = req.params.id_guardar_registro;
-    const sql = `DELETE FROM guardar_registro WHERE id_guardar_registro = '${id_guardar_registro}';`;
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Eliminar guardar registro
+app.delete('/ruvi/guardar-registro/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM guardar_registro WHERE id_guardar_registro = '${id}';`;
     const query = db.query(sql, (error, result) => {
         try {
             if (error) {
@@ -249,78 +256,84 @@ app.delete('/ruvi/guardar_registro/:id_guardar_registro', (req, res) => {
         }
     });
 });
+
 /*******************
  *
- MP_nucleo_familiar 
+ MP_nucleo-familiar 
  * 
  ******************/
 
-app.get('/ruvi/nucleo_familiar', (req, res) => {
-    console.log('Consultar datos del  nucleo familiar');
-    var query = db.query('select * from nucleo_familiar', (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                res.json(result)
+// Manejo de rutas select familiar
+app.get('/ruvi/nucleo-familiar', (req, res) => {
+        console.log('Consultar datos del  nucleo familiar');
+        var query = db.query('select * from nucleo_familiar', (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
-app.get('/ruvi/nucleo_familiar/:id_nucleofam', (req, res) => {
-    const id_nucleofam = req.params.id_nucleofam;
-    const sql = `SELECT * FROM nucleo_familiar WHERE id_nucleofam='${id_nucleofam}';`;
-    const query = db.query(sql, (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                const [data] = result;
-                res.json(data)
+        });
+    })
+    // Manejo de rutas select nucleo familiar id
+app.get('/ruvi/nucleo-familiar/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM nucleo_familiar WHERE id_nucleofam='${id}';`;
+        const query = db.query(sql, (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    const [data] = result;
+                    res.json(data)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
-app.post('/ruvi/nucleo_familiar', (req, res) => {
-    const dato = req.body
+        });
+    })
+    //Agregar nucleo familiar
+app.post('/ruvi/nucleo-familiar', (req, res) => {
+        const dato = req.body
 
-    const sql = `INSERT INTO nucleo_familiar (descripcion)
+        const sql = `INSERT INTO nucleo_familiar (descripcion)
   values ('${dato.descripcion}')`;
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
-app.put('/ruvi/nucleo_familiar', (req, res) => {
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Actualizar nucleo familiar
+app.put('/ruvi/nucleo-familiar', (req, res) => {
 
-    const dato = req.body
+        const dato = req.body
 
-    const sql = `UPDATE nucleo_familiar SET id_nucleofam = '${dato.descripcion}'
+        const sql = `UPDATE nucleo_familiar SET id_nucleofam = '${dato.descripcion}'
           WHERE id_nucleofam = '${dato.descripcion}';`;
 
-    console.log(sql);
+        console.log(sql);
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
-app.delete('/ruvi/nucleo_familiar/:id_nucleofam', (req, res) => {
-    const id_nucleofam = req.params.id_nucleofam;
-    const sql = `DELETE FROM niveles_educacion WHERE id_nucleofam = '${id_nucleofam}';`;
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    // Eliminar nucleo familiar
+app.delete('/ruvi/nucleo-familiar/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM niveles_educacion WHERE id_nucleofam = '${id}';`;
     const query = db.query(sql, (error, result) => {
         try {
             if (error) {
@@ -340,24 +353,26 @@ app.delete('/ruvi/nucleo_familiar/:id_nucleofam', (req, res) => {
  *
  **********/
 
+// Manejo de rutas select roles
 app.get('/ruvi/roles', (req, res) => {
-    console.log('Consultar datos de los roles');
-    var query = db.query('select * from roles', (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                res.json(result)
+        console.log('Consultar datos de los roles');
+        var query = db.query('select * from roles', (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
-app.get('/ruvi/roles/:id_rol', (req, res) => {
-        const id_rol = req.params.id_rol;
-        const sql = `SELECT * FROM roles WHERE id_rol='${id_rol}';`;
+        });
+    })
+    // Manejo de rutas select roles id
+app.get('/ruvi/roles/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM roles WHERE id_rol='${id}';`;
         const query = db.query(sql, (error, result) => {
             try {
                 if (error) {
@@ -372,41 +387,43 @@ app.get('/ruvi/roles/:id_rol', (req, res) => {
             }
         });
     })
-    // 
+    // Agregar roles
 app.post('/ruvi/roles', (req, res) => {
-    const dato = req.body
+        const dato = req.body
 
-    const sql = `INSERT INTO roles (descripcion)
+        const sql = `INSERT INTO roles (descripcion)
   values ('${dato.descripcion}')`;
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Actualizar roles
 app.put('/ruvi/roles', (req, res) => {
 
-    const dato = req.body
+        const dato = req.body
 
-    const sql = `UPDATE roles SET id_rol= '${dato.descripcion}'
+        const sql = `UPDATE roles SET id_rol= '${dato.descripcion}'
           WHERE id_rol= '${dato.descripcion}';`;
 
-    console.log(sql);
+        console.log(sql);
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
-app.delete('/ruvi/roles/:id_rol', (req, res) => {
-    const id_rol = req.params.id_rol;
-    const sql = `DELETE FROM roles WHERE id_rol = '${id_rol}';`;
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Eliminar roles
+app.delete('/ruvi/roles/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM roles WHERE id_rol = '${id}';`;
     const query = db.query(sql, (error, result) => {
         try {
             if (error) {
@@ -426,24 +443,26 @@ app.delete('/ruvi/roles/:id_rol', (req, res) => {
  * 
  ****/
 
+// Manejo de rutas select vivienda
 app.get('/ruvi/vivienda', (req, res) => {
-    console.log('Consultar datos de la vivienda');
-    var query = db.query('select * from vivienda', (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                res.json(result)
+        console.log('Consultar datos de la vivienda');
+        var query = db.query('select * from vivienda', (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
-app.get('/ruvi/vivienda/:id_viviendaper', (req, res) => {
-        const id_viviendaper = req.params.id_viviendaper;
-        const sql = `SELECT * FROM vivienda WHERE id_viviendaper='${id_viviendaper}';`;
+        });
+    })
+    // Manejo de rutas select vivienda id
+app.get('/ruvi/vivienda/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM vivienda WHERE id_viviendaper='${id}';`;
         const query = db.query(sql, (error, result) => {
             try {
                 if (error) {
@@ -458,41 +477,43 @@ app.get('/ruvi/vivienda/:id_viviendaper', (req, res) => {
             }
         });
     })
-    // crear
+    // Agregar vivienda
 app.post('/ruvi/vivienda', (req, res) => {
-    const dato = req.body
+        const dato = req.body
 
-    const sql = `INSERT INTO vivienda (descripcion)
+        const sql = `INSERT INTO vivienda (descripcion)
   values ('${dato.descripcion}')`;
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Actualizar viienda
 app.put('/ruvi/vivienda', (req, res) => {
 
-    const dato = req.body
+        const dato = req.body
 
-    const sql = `UPDATE vivienda SET id_viviendaper= '${dato.descripcion}'
+        const sql = `UPDATE vivienda SET id_viviendaper= '${dato.descripcion}'
           WHERE id_viviendaper= '${dato.descripcion}';`;
 
-    console.log(sql);
+        console.log(sql);
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
-app.delete('/ruvi/vivienda/:id_viviendaper', (req, res) => {
-    const id_viviendaper = req.params.id_viviendaper;
-    const sql = `DELETE FROM vivienda WHERE id_viviendaper = '${id_viviendaper}';`;
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    // Eliminar vivienda
+app.delete('/ruvi/vivienda/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM vivienda WHERE id_viviendaper = '${id}';`;
     const query = db.query(sql, (error, result) => {
         try {
             if (error) {
@@ -512,24 +533,26 @@ app.delete('/ruvi/vivienda/:id_viviendaper', (req, res) => {
  * 
  ****/
 
+// Manejo de rutas select usuario
 app.get('/ruvi/usuario', (req, res) => {
-    console.log('Consultar datos de  los usuario');
-    var query = db.query('select * from usuario', (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                res.json(result)
+        console.log('Consultar datos de  los usuario');
+        var query = db.query('select * from usuario', (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
-app.get('/ruvi/usuario/:id_datos', (req, res) => {
-        const id_datos = req.params.id_datos;
-        const sql = `SELECT * FROM usuario WHERE id_datos='${id_datos}';`;
+        });
+    })
+    // Manejo de rutas select usuario id
+app.get('/ruvi/usuario/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM usuario WHERE id_datos='${id}';`;
         const query = db.query(sql, (error, result) => {
             try {
                 if (error) {
@@ -544,7 +567,7 @@ app.get('/ruvi/usuario/:id_datos', (req, res) => {
             }
         });
     })
-    //Insertar datos 
+    //Agregar usuario 
 app.post('/ruvi/usuario', (req, res) => {
     const dato = {
         nombres: req.body.nombres,
@@ -566,7 +589,7 @@ app.post('/ruvi/usuario', (req, res) => {
                                                   telefono='${dato.telefono}',
                                                   correo='${dato.correo}',
                                                   discapacidad='${dato.discapacidad}',
-                                                  desplazado='${dato.desplazado}',`;
+                                                  desplazado='${dato.desplazado}'`;
 
     db.query(sql, (error, result) => {
         if (error) {
@@ -577,9 +600,9 @@ app.post('/ruvi/usuario', (req, res) => {
     });
 })
 
-//Actualizar
-app.put('/ruvi/usuario:id_datos', (req, res) => {
-    const id_datos = req.params.id_datos;
+//Actualizar usuarios
+app.put('/ruvi/usuario:id', (req, res) => {
+    const id = req.params.id;
 
     const dato = {
         nombres: req.body.nombres,
@@ -599,7 +622,7 @@ app.put('/ruvi/usuario:id_datos', (req, res) => {
         }
     }
 
-    const sql = `UPDATE usuario SET ${sets.join(', ')} WHERE id_datos='${id_datos}';`;
+    const sql = `UPDATE usuario SET ${sets.join(', ')} WHERE id_datos='${id}';`;
     console.log(sql);
 
     db.query(sql, (error, result) => {
@@ -610,9 +633,11 @@ app.put('/ruvi/usuario:id_datos', (req, res) => {
         }
     });
 })
-app.delete('/ruvi/usuario/:id_datos', (req, res) => {
-    const id_datos = req.params.id_datos;
-    const sql = `DELETE FROM usuario WHERE id_datos = '${id_datos}';`;
+
+// Eliminar usuarios
+app.delete('/ruvi/usuario/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM usuario WHERE id_datos = '${id}';`;
     const query = db.query(sql, (error, result) => {
         try {
             if (error) {
@@ -632,7 +657,8 @@ app.delete('/ruvi/usuario/:id_datos', (req, res) => {
  * 
  ****/
 
-app.get('/ruvi/registro_documento', (req, res) => {
+// manejo de rutas select registro de documentos
+app.get('/ruvi/registro-documento', (req, res) => {
     console.log('Consultar datos de  los documentos');
     var query = db.query('select * from registro_documento', (error, result) => {
         try {
@@ -647,9 +673,11 @@ app.get('/ruvi/registro_documento', (req, res) => {
         }
     });
 })
-app.get('/ruvi/registro_documento/:id_registrodoc', (req, res) => {
-        const id_registrodoc = req.params.id_registrodoc;
-        const sql = `SELECT * FROM registro_documento WHERE id_registrodoc='${id_registrodoc}';`;
+
+//manejo de rutas select registro de documentos id
+app.get('/ruvi/registro-documento/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM registro_documento WHERE id_registrodoc='${id}';`;
         const query = db.query(sql, (error, result) => {
             try {
                 if (error) {
@@ -664,8 +692,8 @@ app.get('/ruvi/registro_documento/:id_registrodoc', (req, res) => {
             }
         });
     })
-    //Insertar datos 
-app.post('/ruvi/registro_documento', (req, res) => {
+    //Agregar datos 
+app.post('/ruvi/registro-documento', (req, res) => {
     const dato = {
         tipo_documento: req.body.tipo_documento,
         numero_documento: req.body.numero_documento,
@@ -674,8 +702,7 @@ app.post('/ruvi/registro_documento', (req, res) => {
 
     const sql = `INSERT INTO registro_documento SET tipo_documento='${dato.tipo_documento}',
                                                   numero_documento='${dato.numero_documento}',
-                                                  registro_rivi='${dato.registro_rivi}',
-                                                  `;
+                                                  registro_rivi='${dato.registro_rivi}'`;
 
     db.query(sql, (error, result) => {
         if (error) {
@@ -686,9 +713,9 @@ app.post('/ruvi/registro_documento', (req, res) => {
     });
 })
 
-//Actualizar
-app.put('/ruvi/registro_documento:id_registrodoc', (req, res) => {
-    const id_registrodoc = req.params.id_registrodoc;
+//Actualizar registros de documentos
+app.put('/ruvi/registro-documento:id', (req, res) => {
+    const id = req.params.id;
 
     const dato = {
         tipo_documento: req.body.tipo_documento,
@@ -703,7 +730,7 @@ app.put('/ruvi/registro_documento:id_registrodoc', (req, res) => {
         }
     }
 
-    const sql = `UPDATE registro_documento SET ${sets.join(', ')} WHERE id_registrodoc='${id_registrodoc}';`;
+    const sql = `UPDATE registro_documento SET ${sets.join(', ')} WHERE id_registrodoc='${id}';`;
     console.log(sql);
 
     db.query(sql, (error, result) => {
@@ -714,9 +741,11 @@ app.put('/ruvi/registro_documento:id_registrodoc', (req, res) => {
         }
     });
 })
-app.delete('/ruvi/registro_documento/:id_registrodoc', (req, res) => {
-    const id_registrodoc = req.params.id_registrodoc;
-    const sql = `DELETE FROM registro_documento WHERE id_registrodoc = '${id_registrodoc}';`;
+
+//Eliminar registros de documentos
+app.delete('/ruvi/registro-documento/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM registro_documento WHERE id_registrodoc = '${id}';`;
     const query = db.query(sql, (error, result) => {
         try {
             if (error) {
@@ -732,28 +761,29 @@ app.delete('/ruvi/registro_documento/:id_registrodoc', (req, res) => {
 
 /*****
  * 
- MP_registro_usuarios 
+ MP_registro-usuarios   
  * 
  ****/
-
-app.get('/ruvi/registro_usuarios', (req, res) => {
-    console.log('Consultar datos de  los usuarios');
-    var query = db.query('select * from registro_usuarios', (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                res.json(result)
+// Manejo de rutas select registro usuarios
+app.get('/ruvi/registro-usuarios', (req, res) => {
+        console.log('Consultar datos de  los usuarios');
+        var query = db.query('select * from registro_usuarios', (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
-app.get('/ruvi/registro_usuarios/:id_regisusu', (req, res) => {
-        const id_regisusu = req.params.id_regisusu;
-        const sql = `SELECT * FROM registro_usuarios WHERE id_regisusu='${id_regisusu}';`;
+        });
+    })
+    // Manejo de rutas select registro usuarios id
+app.get('/ruvi/registro-usuarios/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM registro_usuarios WHERE id_regisusu='${id}';`;
         const query = db.query(sql, (error, result) => {
             try {
                 if (error) {
@@ -768,8 +798,8 @@ app.get('/ruvi/registro_usuarios/:id_regisusu', (req, res) => {
             }
         });
     })
-    //Insertar datos 
-app.post('/ruvi/registro_usuarios', (req, res) => {
+    //Agregar registro de usuarios 
+app.post('/ruvi/registro-usuarios', (req, res) => {
     const dato = {
         nombre: req.body.nombre,
         apellido: req.body.apellido,
@@ -791,8 +821,7 @@ app.post('/ruvi/registro_usuarios', (req, res) => {
                                                   correo='${dato.correo}',
                                                   usuario='${dato.usuario}',
                                                   contraseña='${dato.contraseña}',
-                                                  id_rol='${dato.id_rol}',
-                                                  `;
+                                                  id_rol='${dato.id_rol}'`;
 
     db.query(sql, (error, result) => {
         if (error) {
@@ -803,43 +832,44 @@ app.post('/ruvi/registro_usuarios', (req, res) => {
     });
 })
 
-//Actualizar
-app.put('/ruvi/registro_usuarios:id_registrousu', (req, res) => {
-    const id_registrousu = req.params.id_registrousu;
+//Actualizar registro de usuarios
+app.put('/ruvi/registro-usuarios:id', (req, res) => {
+        const id = req.params.id;
 
-    const dato = {
-        nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        edad: req.body.edad,
-        sexo: req.body.sexo,
-        telefono: req.body.telefono,
-        correo: req.body.correo,
-        usuario: req.body.usuario,
-        contraseña: req.body.contraseña,
-        id_rol: req.body.id_rol,
+        const dato = {
+            nombre: req.body.nombre,
+            apellido: req.body.apellido,
+            edad: req.body.edad,
+            sexo: req.body.sexo,
+            telefono: req.body.telefono,
+            correo: req.body.correo,
+            usuario: req.body.usuario,
+            contraseña: req.body.contraseña,
+            id_rol: req.body.id_rol,
 
-    };
-    let sets = [];
-    for (i in dato) {
-        if (dato[i] || dato[i] == 0) {
-            sets.push(`${i}='${dato[i]}'`);
+        };
+        let sets = [];
+        for (i in dato) {
+            if (dato[i] || dato[i] == 0) {
+                sets.push(`${i}='${dato[i]}'`);
+            }
         }
-    }
 
-    const sql = `UPDATE registro_usuarios SET ${sets.join(', ')} WHERE id_registrousu='${id_registrousu}';`;
-    console.log(sql);
+        const sql = `UPDATE registro_usuarios SET ${sets.join(', ')} WHERE id_registrousu='${id}';`;
+        console.log(sql);
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
-app.delete('/ruvi/registro_usuarios/:id_registrousu', (req, res) => {
-    const id_registrousu = req.params.id_registrousu;
-    const sql = `DELETE FROM registro_usuarios WHERE id_registrousu = '${id_registrousu}';`;
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Eliminar registro de usuarios
+app.delete('/ruvi/registro-usuarios/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM registro_usuarios WHERE id_registrousu = '${id}';`;
     const query = db.query(sql, (error, result) => {
         try {
             if (error) {
@@ -859,24 +889,26 @@ app.delete('/ruvi/registro_usuarios/:id_registrousu', (req, res) => {
  * 
  ****/
 
+// Manejo de rutas select salud
 app.get('/ruvi/salud', (req, res) => {
-    console.log('Consultar datos de la salud');
-    var query = db.query('select * from salud', (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                res.json(result)
+        console.log('Consultar datos de la salud');
+        var query = db.query('select * from salud', (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
-app.get('/ruvi/salud/:id_saludper', (req, res) => {
-        const id_saludper = req.params.id_saludper;
-        const sql = `SELECT * FROM salud WHERE id_saludper='${id_saludper}';`;
+        });
+    })
+    // Manejo de rutas select salud id
+app.get('/ruvi/salud/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM salud WHERE id_saludper='${id}';`;
         const query = db.query(sql, (error, result) => {
             try {
                 if (error) {
@@ -891,7 +923,7 @@ app.get('/ruvi/salud/:id_saludper', (req, res) => {
             }
         });
     })
-    //Insertar datos 
+    //Agregar salud 
 app.post('/ruvi/salud', (req, res) => {
     const dato = {
         nombre_eps: req.body.nombre_eps,
@@ -899,7 +931,7 @@ app.post('/ruvi/salud', (req, res) => {
     };
 
     const sql = `INSERT INTO salud SET nombre_eps='${dato.nombre_eps}',
-                                                  descripcion='${dato.descripcion}',`;
+                                                  descripcion='${dato.descripcion}'`;
 
     db.query(sql, (error, result) => {
         if (error) {
@@ -910,35 +942,36 @@ app.post('/ruvi/salud', (req, res) => {
     });
 })
 
-//Actualizar
-app.put('/ruvi/salud:id_saludper', (req, res) => {
-    const id_saludper = req.params.id_saludper;
+//Actualizar salud
+app.put('/ruvi/salud:id', (req, res) => {
+        const id = req.params.id;
 
-    const dato = {
-        nombre_eps: req.body.nombre_eps,
-        descripcion: req.body.descripcion,
-    };
-    let sets = [];
-    for (i in dato) {
-        if (dato[i] || dato[i] == 0) {
-            sets.push(`${i}='${dato[i]}'`);
+        const dato = {
+            nombre_eps: req.body.nombre_eps,
+            descripcion: req.body.descripcion,
+        };
+        let sets = [];
+        for (i in dato) {
+            if (dato[i] || dato[i] == 0) {
+                sets.push(`${i}='${dato[i]}'`);
+            }
         }
-    }
 
-    const sql = `UPDATE salud SET ${sets.join(', ')} WHERE id_saludper='${id_saludper}';`;
-    console.log(sql);
+        const sql = `UPDATE salud SET ${sets.join(', ')} WHERE id_saludper='${id}';`;
+        console.log(sql);
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
-app.delete('/ruvi/salud/:id_saludper', (req, res) => {
-    const id_saludper = req.params.id_saludper;
-    const sql = `DELETE FROM salud WHERE id_saludper = '${id_saludper}';`;
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Eliminar salud
+app.delete('/ruvi/salud/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM salud WHERE id_saludper = '${id}';`;
     const query = db.query(sql, (error, result) => {
         try {
             if (error) {
@@ -954,28 +987,30 @@ app.delete('/ruvi/salud/:id_saludper', (req, res) => {
 
 /*****
  * 
- MP_sitio_labor 
+ MP_sitio-labor 
  * 
  ****/
 
+// Manejo de rutas select sitio labor
 app.get('/ruvi/sitio-labor', (req, res) => {
-    console.log('Consultar datos del sitio donde labora');
-    var query = db.query('select *  from sitio_labor', (error, result) => {
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                res.json(result)
+        console.log('Consultar datos del sitio donde labora');
+        var query = db.query('select *  from sitio_labor', (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
+        });
+    })
+    // Manejo de rutas select sitio de labor id
 app.get('/ruvi/sitio-labor/:id-sitioinf', (req, res) => {
         const id = req.params.id;
-        const sql = `SELECT * FROM sitio-labor WHERE id_sitioinf='${id}';`;
+        const sql = `SELECT * FROM sitio_labor WHERE id_sitioinf='${id}';`;
         const query = db.query(sql, (error, result) => {
             try {
                 if (error) {
@@ -990,7 +1025,7 @@ app.get('/ruvi/sitio-labor/:id-sitioinf', (req, res) => {
             }
         });
     })
-    //Insertar datos 
+    //Agregar sitio de labor 
 app.post('/ruvi/sitio-labor', (req, res) => {
     const dato = {
         direccion: req.body.direccion,
@@ -998,7 +1033,7 @@ app.post('/ruvi/sitio-labor', (req, res) => {
         producto: req.body.producto,
     };
 
-    const sql = `INSERT INTO sitio-labor SET direccion='${dato.direccion}',
+    const sql = `INSERT INTO sitio_labor SET direccion='${dato.direccion}',
                                                   foto='${dato.foto}',
                                                   producto='${dato.producto}'`;
 
@@ -1011,36 +1046,37 @@ app.post('/ruvi/sitio-labor', (req, res) => {
     });
 })
 
-//Actualizar
+//Actualizar sitio de labor
 app.put('/ruvi/sitio-labor/:id', (req, res) => {
-    const id = req.params.id;
+        const id = req.params.id;
 
-    const dato = {
-        direccion: req.body.direccion,
-        foto: req.body.foto,
-        producto: req.body.producto,
-    };
-    let sets = [];
-    for (i in dato) {
-        if (dato[i] || dato[i] == 0) {
-            sets.push(`${i}='${dato[i]}'`);
+        const dato = {
+            direccion: req.body.direccion,
+            foto: req.body.foto,
+            producto: req.body.producto,
+        };
+        let sets = [];
+        for (i in dato) {
+            if (dato[i] || dato[i] == 0) {
+                sets.push(`${i}='${dato[i]}'`);
+            }
         }
-    }
 
-    const sql = `UPDATE sitio-labor SET ${sets.join(', ')} WHERE id_sitioinf='${id}';`;
-    console.log(sql);
+        const sql = `UPDATE sitio_labor SET ${sets.join(', ')} WHERE id_sitioinf='${id}';`;
+        console.log(sql);
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Eliminar sitio de labor
 app.delete('/ruvi/sitio-labor/:id', (req, res) => {
     const id = req.params.id;
-    const sql = `DELETE FROM sitio-labor WHERE id_sitioinf = '${id}';`;
+    const sql = `DELETE FROM sitio_labor WHERE id_sitioinf = '${id}';`;
     const query = db.query(sql, (error, result) => {
         try {
             if (error) {
@@ -1057,24 +1093,26 @@ app.delete('/ruvi/sitio-labor/:id', (req, res) => {
 
 /*****
  * 
- MP_tiempo_labor 
+ MP_tiempo-labor 
  * 
  ****/
+// Manejo de rutas select tiempo de labor
 app.get('/ruvi/tiempo-labor', (req, res) => { //COMO YO LO QUIERA LLAMAR
-    console.log('Consultar datos de  labor informal');
-    var query = db.query('select * from tiempo_labor', (error, result) => { //COMO ESTA EN LA BASE DE DATOS
-        try {
-            if (error) {
-                throw error;
-            } else {
-                console.log(result);
-                res.json(result)
+        console.log('Consultar datos de  labor informal');
+        var query = db.query('select * from tiempo_labor', (error, result) => { //COMO ESTA EN LA BASE DE DATOS
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
             }
-        } catch (error) {
-            res.json({ error: error.message })
-        }
-    });
-})
+        });
+    })
+    // Manejo de rutas select tiempo de labor id
 app.get('/ruvi/tiempo-labor/:id', (req, res) => {
         const id = req.params.id;
         const sql = `SELECT * FROM tiempo_labor WHERE id_tiempoinf='${id}';`;
@@ -1092,38 +1130,40 @@ app.get('/ruvi/tiempo-labor/:id', (req, res) => {
             }
         });
     })
-    // crear
+    //Agregar sitio de labor
 app.post('/ruvi/tiempo-labor', (req, res) => {
-    const dato = req.body
+        const dato = req.body
 
-    const sql = `INSERT INTO tiempo_labor (descripcion)
+        const sql = `INSERT INTO tiempo_labor (descripcion)
   values ('${dato.descripcion}')`;
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Actualizar sitio de labor
 app.put('/ruvi/tiempo-labor', (req, res) => {
 
-    const dato = req.body
+        const dato = req.body
 
-    const sql = `UPDATE tiempo_labor SET id_tiempoinf= '${dato.descripcion}'
+        const sql = `UPDATE tiempo_labor SET id_tiempoinf= '${dato.descripcion}'
           WHERE id_tiempoinf= '${dato.descripcion}';`;
 
-    console.log(sql);
+        console.log(sql);
 
-    db.query(sql, (error, result) => {
-        if (error) {
-            res.json({ error: error })
-        } else {
-            res.json(result)
-        }
-    });
-})
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Eliminar sitio de labor
 app.delete('/ruvi/tiempo-labor/:id', (req, res) => {
     const id = req.params.id;
     const sql = `DELETE FROM tiempo_labor WHERE id_tiempoinf = '${id}';`;
