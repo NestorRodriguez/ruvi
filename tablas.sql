@@ -25,12 +25,12 @@ sexo varchar(20) not null,
 telefono double not null,
 correo varchar(50) not null,
 usuario varchar(100) not null,
-contraseña varchar(100) not null,
+contrasena varchar(100) not null,
 id_rol int not null,
 foreign key (id_rol) references roles(id_rol)
 );
 
-insert into registro_usuarios(nombre,apellido,edad,sexo,telefono,correo,usuario,contraseña,id_rol)
+insert into registro_usuarios(nombre,apellido,edad,sexo,telefono,correo,usuario,contrasena,id_rol)
 values("Luis","Forero Torres","35","Masculino","3187809716","laforero1@misena.edu.co","laft","12345","1");
 
 select * from registro_usuarios;
@@ -65,6 +65,8 @@ correo varchar(50),
 discapacidad varchar(20),
 desplazado varchar(20)
 );
+use ruvi;
+select * from registro_usuarios;
 
 
 

@@ -6,42 +6,54 @@
                 <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
             </ion-button>
         </ion-buttons>
-
         <ion-title>Sitio de Labor Informal</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <form (ngSubmit)="login(forma)" #forma="ngForm">
+    <form (ngSubmit)="enviarData(forma)" #forma="ngForm">
         <ion-list>
-
             <ion-item>
                 <ion-label position="floating">Dirección donde Labora Informalmente
                     <ion-text color="danger"></ion-text>
                 </ion-label>
-                <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
+                <ion-input [(ngModel)]="model.direccion" minlength="9" required name="direccion" type="text"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label position="floating">Producto que Comercializa
                     <ion-text color="danger"></ion-text>
                 </ion-label>
-                <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
+                <ion-input [(ngModel)]="model.producto" minlength="5" required name="producto" type="text"></ion-input>
             </ion-item>
-            <ion-button (click)="pruebaboton();">enviar</ion-button>
-
+            <ion-item lines="">
+                <div>
+                    <ion-label><b>Foto</b></ion-label>
+                </div>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="4" *ngIf="model.foto">
+                            <ion-button size="small" shape="round">
+                                <ion-icon slot="icon-only" name="checmark"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                        <ion-col>
+                            <ion-button size="small" shape="round" expand="block" (click)="loadCamera()">
+                                <ion-icon slot="icon-only" name="camera"></ion-icon>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
         </ion-list>
-
-        <ion-card>
-
-            <ion-card-title>Foto</ion-card-title>
-
-            <img src="" />
-        </ion-card>
         <div>
-            <ion-button routerLink="/menu" routersDirection="forward">
+            <!-- <ion-button type="submit" routerLink="/menu" routersDirection="forward" [disabled]="!formulario.valid">
                 Guardar
+            </ion-button> -->
+            <ion-button type="submit">
+                Registrarse
             </ion-button>
+
+
         </div>
     </form>
-
 </ion-content>

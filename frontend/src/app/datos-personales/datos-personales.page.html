@@ -11,76 +11,80 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
+    <form (ngSubmit)="datosPer(formulario)" #formulario="ngForm">
+        <ion-list>
 
-        <ion-item>
-            <ion-label position="floating">* Nombres Completos
-                <ion-text color="danger"></ion-text>
-            </ion-label>
-            <ion-input required type="text" oninput="handleFirstNameValue(event)"></ion-input>
-        </ion-item>
+            <ion-item>
+                <ion-label position="floating">* Nombres Completos
+                    <ion-text color="danger"></ion-text>
+                </ion-label>
+                <ion-input [(ngModel)]="model.nombre" name="nombre" type="text" required value=""></ion-input>
+            </ion-item>
 
-        <ion-item>
-            <ion-label position="floating">* Apellidos
-                <ion-text color="danger"></ion-text>
-            </ion-label>
-            <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">* Edad
-                <ion-text color="danger"></ion-text>
-            </ion-label>
-            <ion-input required type="text" oninput="handleFirstNameValue(event)"></ion-input>
-        </ion-item>
+            <ion-item>
+                <ion-label position="floating">* Apellidos
+                    <ion-text color="danger"></ion-text>
+                </ion-label>
+                <ion-input [(ngModel)]="model.apellido" name="apellido" type="text" required value=""></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">* Edad
+                    <ion-text color="danger"></ion-text>
+                </ion-label>
+                <ion-input [(ngModel)]="model.edad" name="edad" type="text" required value=""></ion-input>
+            </ion-item>
 
-        <ion-item>
-            <ion-label>* Sexo</ion-label>
-            <ion-select interface="popover">
-                <ion-select-option value="nes">Masculino</ion-select-option>
-                <ion-select-option value="n64">Femenino</ion-select-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label position="floating">* Dirección
-                <ion-text color="danger"></ion-text>
-            </ion-label>
-            <ion-input required type="text" oninput="handleFirstNameValue(event)"></ion-input>
-        </ion-item>
+            <ion-item>
+                <ion-label>* Sexo</ion-label>
+                <ion-select [(ngModel)]="model.sexo" name="sexo" required interface="popover">
+                    <ion-select-option value="Masculino">Masculino</ion-select-option>
+                    <ion-select-option value="Femenino">Femenino</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">* Dirección
+                    <ion-text color="danger"></ion-text>
+                </ion-label>
+                <ion-input [(ngModel)]="model.direccion" name="direccion" type="text" required value=""></ion-input>
+            </ion-item>
 
-        <ion-item>
-            <ion-label position="floating">* Teléfono
-                <ion-text color="danger"></ion-text>
-            </ion-label>
-            <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
-        </ion-item>
+            <ion-item>
+                <ion-label position="floating">* Teléfono
+                    <ion-text color="danger"></ion-text>
+                </ion-label>
+                <ion-input [(ngModel)]="model.numero" name="numero" type="number" required value=""></ion-input>
+            </ion-item>
 
-        <ion-item>
-            <ion-label position="floating"> Correo
-                <ion-text color="danger"></ion-text>
-            </ion-label>
-            <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
-        </ion-item>
+            <ion-item>
+                <ion-label position="floating"> Correo
+                    <ion-text color="danger"></ion-text>
+                </ion-label>
+                <ion-input [(ngModel)]="model.correo" name="correo" type="text" required value=""></ion-input>
+            </ion-item>
 
-        <ion-item>
-            <ion-label>Discapacidad</ion-label>
-            <ion-select interface="popover">
-                <ion-select-option value="nes">Si</ion-select-option>
-                <ion-select-option value="n64">No</ion-select-option>
-            </ion-select>
-        </ion-item>
-        <ion-item>
-            <ion-label>Desplazado(a)</ion-label>
-            <ion-select interface="popover">
-                <ion-select-option value="nes">Si</ion-select-option>
-                <ion-select-option value="n64">No</ion-select-option>
-            </ion-select>
-        </ion-item>
-    </ion-list>
+            <ion-item>
+                <ion-label>Discapacidad</ion-label>
+                <ion-select [(ngModel)]="model.disc" name="disc" required interface="popover">
+                    <ion-select-option value="Si">Si</ion-select-option>
+                    <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Desplazado(a)</ion-label>
+                <ion-select [(ngModel)]="model.desp" name="desp" required interface="popover">
+                    <ion-select-option value="Si">Si</ion-select-option>
+                    <ion-select-option value="No">No</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
 
-    <div>
-        <ion-button routerLink="/niveles-educacion" routersDirection="forward">
+        <div>
+            <!-- <ion-button routerLink="/niveles-educacion" routersDirection="forward">
             Guardar
-        </ion-button>
-    </div>
-
+        </ion-button> -->
+            <ion-button type="submit">
+                Registrarse
+            </ion-button>
+        </div>
+    </form>
 </ion-content>

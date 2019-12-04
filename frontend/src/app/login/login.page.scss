@@ -5,7 +5,7 @@
     ion-title {
         text-align: center;
         color: #FFFFFF;
-        font-size: 10vw;
+        font-size: 8vw;
         padding: 10vh 20vw 0vh 20vw;
     }
     
@@ -19,7 +19,7 @@
         color: #FFFFFF;
     }
     
-    ion-content>form>div>ion-button {
+    ion-content>form>ion-toolbar>ion-button {
         --border-radius: 7vw;
         --background: var(--ion-color-secondary);
         --color: var(--ion-color-primary);

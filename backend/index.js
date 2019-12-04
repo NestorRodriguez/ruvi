@@ -34,22 +34,44 @@ db.connect(function(error) {
         console.log(`Base de datos conectada!`);
 });
 
-app.get('/', function(req, res) {
-    console.log('Página de Inicio ');
-    res.send("Bienvenidos al servidor <strong> ruvi </strong>");
-});
-
 /***************************************************
  * Comienzo de servicios    *
  **************************************************/
 
-
 app.get('/', function(req, res) {
     console.log('Página de Inicio ');
     res.send("Bienvenidos al servidor <strong> ruvi </strong>");
 });
+
+/*************************************************
+ * Usuarios
+ * ***********************************************/
+app.get('/ruvi/users/:id', (req, res) => {
+    var user = req.params;
+    const pass = req.params.Contrasena;
+    console.log(user.length);
+    res.json(user);
+    /* var query = db.query(`select * from registro_usuarios where usuario ='${user}' + contraseña = '${pass}';`, (error, result) => {
+         try {
+             if (error) {
+                 console.log('error: ' + error)
+                 throw error;
+             } else {
+                 console.log(result);
+                 res.json(result)
+             }
+         } catch (error) {
+             console.log('catch: ')
+             res.json({ error: error.message })
+         }
+     });*/
+});
+
+
+
+
 /***************************
-MP_niveles_educacion
+MP_niveles-educacion
 Crear datos niveles de educación
 ***************************/
 
@@ -70,6 +92,7 @@ app.get('/ruvi/niveles-educacion', (req, res) => {
         });
     })
     // Manejo de rutas select niveles de educacion id
+
 app.get('/ruvi/niveles-educacion/:id', (req, res) => {
         const id = req.params.id;
         const sql = `SELECT * FROM niveles_educacion WHERE id_niveledu='${id}';`;
@@ -136,6 +159,130 @@ app.delete('/ruvi/niveles-educacion/:id', (req, res) => {
         }
     });
 });
+/********************
+ *  
+ MP_Usuario
+ * 
+ ********************/
+
+// Manejo de rutas select usuario
+app.get('/ruvi/usuario', (req, res) => {
+        console.log('Consultar datos de usuario');
+        var query = db.query('select * from usuario', (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
+            }
+        });
+    })
+    // Manejo de rutas select usuario id
+app.get('/ruvi/usuario/:id', (req, res) => {
+        const id = req.params.id;
+        const sql = `SELECT * FROM usuario WHERE id_datos='${id}';`;
+        const query = db.query(sql, (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    const [data] = result;
+                    res.json(data)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
+            }
+        });
+    })
+    //Agregar  usuario 
+app.post('/ruvi/usuario', (req, res) => {
+    const dato = {
+        nombres: req.body.nombres,
+        apellidos: req.body.apellidos,
+        edad: req.body.edad,
+        sexo: req.body.sexo,
+        direccion: req.body.direccion,
+        telefono: req.body.telefono,
+        correo: req.body.correo,
+        discapacidad: req.body.discapacidad,
+        desplazado: req.body.desplazado,
+    };
+
+    const sql = `INSERT INTO usuario SET nombres='${dato.nombres}',
+                                              apellidos='${dato.apellidos}',
+                                              edad='${dato.edad}',
+                                              sexo='${dato.sexo}',
+                                              direccion='${dato.direccion}',
+                                              telefono='${dato.telefono}',
+                                              correo='${dato.correo}',  
+                                              discapacidad='${dato.discapacidad}',
+                                              desplazado='${dato.desplazado}'`;
+
+    db.query(sql, (error, result) => {
+        if (error) {
+            res.json({ error: error })
+        } else {
+            res.json(result)
+        }
+    });
+})
+
+//Actualizar usuario
+app.put('/ruvi/usuario:id', (req, res) => {
+        const id = req.params.id;
+
+        const dato = {
+            nombres: req.body.nombres,
+            apellidos: req.body.apellidos,
+            edad: req.body.edad,
+            sexo: req.body.sexo,
+            direccion: req.body.direccion,
+            telefono: req.body.telefono,
+            correo: req.body.correo,
+            discapacidad: req.body.discapacidad,
+            desplazado: req.body.desplazado,
+        };
+        let sets = [];
+        for (i in dato) {
+            if (dato[i] || dato[i] == 0) {
+                sets.push(`${i}='${dato[i]}'`);
+            }
+        }
+
+        const sql = `UPDATE usuario SET ${sets.join(', ')} WHERE id_datos='${id}';`;
+        console.log(sql);
+
+        db.query(sql, (error, result) => {
+            if (error) {
+                res.json({ error: error })
+            } else {
+                res.json(result)
+            }
+        });
+    })
+    //Eliminar usuario
+app.delete('/ruvi/usuario/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `DELETE FROM usuario WHERE id_datos = '${id}';`;
+    const query = db.query(sql, (error, result) => {
+        try {
+            if (error) {
+                throw error;
+            } else {
+                res.json(result)
+            }
+        } catch (error) {
+            res.json({ error: error.message })
+        }
+
+    });
+
+})
 
 /********************
  *  
