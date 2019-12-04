@@ -10,19 +10,8 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <ion-content class="ion-padding">
-        <ion-radio-group allow-empty-selection [(ngModel)]="id_niveledu">
-            <ion-list>
-                <ion-item *ngFor="let l of buttonNiveles">
-                    <ion-label color="light">
-                        {{ l.descripcion }}
-                    </ion-label>
-                    <ion-radio slot="end" color="primary" [value]="l.id_niveledu"></ion-radio>
-                </ion-item>
-            </ion-list>
-        </ion-radio-group>
-        <!-- <ion-list>
-        <ion-radio-group  >
+    <ion-list>
+        <ion-radio-group>
             <ion-item>
                 <ion-label>Primaria</ion-label>
                 <ion-radio slot="end" color="secondary"></ion-radio>
@@ -54,17 +43,24 @@
                 <ion-input required type="text" oninput="handleLastNameValue(event)"></ion-input>
             </ion-item>
         </ion-radio-group>
-    </ion-list> -->
-        <div>
-            <!-- <ion-button routerLink="/nucleo-familiar" routersDirection="forward">
+    </ion-list>
+    <div>
+        <ion-button type="submit">
+            Guardar
+        </ion-button>
+    </div>
+</ion-content>
+<!-- <ion-content class="ion-padding">
+        <ion-radio-group allow-empty-selection [(ngModel)]="id_niveledu">
+            <ion-list>
+                <ion-item *ngFor="let l of buttonNiveles">
+                    <ion-label color="light">
+                        {{ l.descripcion }}
+                    </ion-label>
+                    <ion-radio slot="end" color="primary" [value]="l.id_niveledu"></ion-radio>
+                </ion-item>
+            </ion-list>
+        </ion-radio-group> -->
+<!-- <ion-button routerLink="/nucleo-familiar" routersDirection="forward">
             Guardar
         </ion-button> -->
-            <ion-button type="submit">
-                Guardar
-            </ion-button>
-
-
-
-        </div>
-
-    </ion-content>

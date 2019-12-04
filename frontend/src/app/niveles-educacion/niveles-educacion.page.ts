@@ -9,14 +9,7 @@ import { RuviService } from '../servicios/ruvi.service';
   styleUrls: ['./niveles-educacion.page.scss'],
 })
 export class NivelesEducacionPage implements OnInit {
-  buttonNiveles: any = [
-    { id_niveledu: 1, descripcion: 'Primaria' },
-    { id_niveledu: 2, descripcion: 'Secundaria' },
-    { id_niveledu: 3, descripcion: 'Técnico' },
-    { id_niveledu: 4, descripcion: 'Tecnólogo' },
-    { id_niveledu: 5, descripcion: 'Profesional' },
-    { id_niveledu: 6, descripcion: 'Ninguno' }
-  ];
+
   // tslint:disable-next-line: variable-name
   id_niveledu: number;
   ruvi: any;
