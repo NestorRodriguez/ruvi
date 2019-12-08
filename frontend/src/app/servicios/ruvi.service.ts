@@ -70,6 +70,32 @@ export class RuviService {
       catchError(this.handleError)
     );
   }
+   // usuario
+
+   getUsuario(): Observable<any[]> {
+      return this.http.get<any[]>(this.urlUsuario).pipe(
+      tap(data => console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  setUsuario(data: any) {
+    return this.http.post(this.urlUsuario, data);
+  }
+
+  getRuviUsuario(id: string) {
+     return this.http.get(`${this.urlUsuario}/${id}`);
+   }
+
+  putUsuario(data: any) {
+    console.log(data);
+    return this.http.put(this.urlUsuario, data);
+  }
+
+  deleteUsuario(id: string) {
+    console.log(`${this.urlUsuario}/${id}`);
+    return this.http.delete(`${this.urlUsuario}/${id}`);
+  }
 
 
   // Niveles de Educacion

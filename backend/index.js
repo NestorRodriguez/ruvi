@@ -46,25 +46,23 @@ app.get('/', function(req, res) {
 /*************************************************
  * Usuarios
  * ***********************************************/
-app.get('/ruvi/users/:id', (req, res) => {
-    var user = req.params;
-    const pass = req.params.Contrasena;
-    console.log(user.length);
-    res.json(user);
-    /* var query = db.query(`select * from registro_usuarios where usuario ='${user}' + contraseña = '${pass}';`, (error, result) => {
-         try {
-             if (error) {
-                 console.log('error: ' + error)
-                 throw error;
-             } else {
-                 console.log(result);
-                 res.json(result)
-             }
-         } catch (error) {
-             console.log('catch: ')
-             res.json({ error: error.message })
-         }
-     });*/
+app.get('/ruvi/registro_usuario/:usuario/:contrasena', (req, res) => {
+    console.log('Consultar datos de los niveles de educacion');
+    var query = db.query('select * from registro_usuarios where usuario = '
+        $ { usuario }
+        'and contrasena ='
+        $ { costrasena }, (error, result) => {
+            try {
+                if (error) {
+                    throw error;
+                } else {
+                    console.log(result);
+                    res.json(result)
+                }
+            } catch (error) {
+                res.json({ error: error.message })
+            }
+        });
 });
 
 

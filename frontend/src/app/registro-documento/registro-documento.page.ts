@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { RuviService } from '../servicios/ruvi.service';
+
 
 @Component({
   selector: 'app-registro-documento',
@@ -8,9 +12,28 @@ import { NgForm } from '@angular/forms';
 })
 export class RegistroDocumentoPage implements OnInit {
   model: any;
-  constructor() { }
+  // tslint:disable-next-line: variable-name
+  id_registrodoc: number;
+  ruvi: any;
+  state: any;
+  consulta: any = [];
+  errorMessage = '';
+public id: string;
+ // tslint:disable-next-line: variable-name
+public tipo_documento: string;
+// tslint:disable-next-line: variable-name
+public numero_documento: string;
+// tslint:disable-next-line: variable-name
+public registro_rivi: string;
+
+
+  constructor(
+    private router: Router,
+    private loadingController: LoadingController,
+    private ruviService: RuviService) { }
 
   ngOnInit() {
+    this.getConsulta();
     this.model = {
       tipoDoc: null,
       numerodoc: null,
@@ -23,4 +46,67 @@ export class RegistroDocumentoPage implements OnInit {
    console.log(this.model);
   }
 
+  Aceptar() {
+    this.ruvi.registro_documento = this.id_registrodoc;
+    this.ruviService.SaveLocalStorageItem(
+      'ruvi',
+      JSON.stringify(this.ruvi)
+    );
+
+
+    this.router.navigateByUrl('/ruvi/niveles-educacion');
+  }
+
+  testRadio() {
+    console.log(this.id_registrodoc);
+  }
+
+  getConsulta() {
+    this.ruviService.getRegistroDocumento().subscribe(response => {
+      this.getConsulta();
+      console.log(response);
+    });
+  }
+
+  getConsultaId(id: string) {
+    id = this.id;
+    this.ruviService.getRuviRegistroDocumento(id).subscribe(
+      estadoActual => {
+        console.log(estadoActual);
+        this.consulta = estadoActual;
+      }, error => this.errorMessage = error);
+  }
+
+  saveForm() {
+    const data = {
+      tipo_documento: this.tipo_documento,
+      numero_documento: this.numero_documento,
+      registro_rivi: this.registro_rivi
+    };
+    this.ruviService.setRegistroDocumento(data).subscribe(response => {
+      this.getConsulta();
+      console.log(response);
+    });
+  }
+
+  deleteForm(id: string) {
+    this.id = id;
+    this.ruviService.deleteRegistroDocumento(id).subscribe(response => {
+      this.ngOnInit();
+      console.log(response);
+    });
+  }
+
+  actualizarForm() {
+    const data = {
+      id_registrodoc: this.id,
+      tipo_documento: this.tipo_documento,
+      numero_documento: this.numero_documento,
+      registro_rivi: this.registro_rivi,
+    };
+    this.ruviService.putRegistroDocumento(data).subscribe(response => {
+      this.getConsulta();
+      console.log(response);
+    });
+  }
 }

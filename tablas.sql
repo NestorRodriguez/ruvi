@@ -29,7 +29,7 @@ contrasena varchar(100) not null,
 id_rol int not null,
 foreign key (id_rol) references roles(id_rol)
 );
-
+	
 insert into registro_usuarios(nombre,apellido,edad,sexo,telefono,correo,usuario,contrasena,id_rol)
 values("Luis","Forero Torres","35","Masculino","3187809716","laforero1@misena.edu.co","laft","12345","1");
 
