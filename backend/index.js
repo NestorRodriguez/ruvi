@@ -21,11 +21,13 @@ const db = mysql.createConnection({
     user: "root",
     password: "12345",
     database: "ruvi",
-    port: 3300,
+    //    port: 3600,
     multipleStatements: true
 });
 
-
+//app.listen(3300, function() {
+//   console.log('Example app listening on port 8000!');
+//});
 //Realizar la conexión a la base de datos
 db.connect(function(error) {
     if (error)
@@ -46,25 +48,24 @@ app.get('/', function(req, res) {
 /*************************************************
  * Usuarios
  * ***********************************************/
-app.get('/ruvi/registro_usuario/:usuario/:contrasena', (req, res) => {
-    console.log('Consultar datos de los niveles de educacion');
-    var query = db.query('select * from registro_usuarios where usuario = '
-        $ { usuario }
-        'and contrasena ='
-        $ { costrasena }, (error, result) => {
-            try {
-                if (error) {
-                    throw error;
-                } else {
-                    console.log(result);
-                    res.json(result)
-                }
-            } catch (error) {
-                res.json({ error: error.message })
+app.get('/ruvi/login/:usuario/:contrasena', (req, res) => {
+    const usuario = req.params.usuario;
+    const contrasena = req.params.contrasena;
+    const sql = `SELECT id_rol,usuario,contrasena FROM registro_usuarios WHERE usuario='${usuario}'and contrasena='${contrasena}';`;
+    const query = db.query(sql, (error, result) => {
+        try {
+            if (error) {
+                throw error;
+            } else {
+                console.log(result);
+                const [data] = result;
+                res.json(data)
             }
-        });
-});
-
+        } catch (error) {
+            res.json({ error: error.message })
+        }
+    });
+})
 
 
 
@@ -953,8 +954,8 @@ app.post('/ruvi/registro-usuarios', (req, res) => {
         telefono: req.body.telefono,
         correo: req.body.correo,
         usuario: req.body.usuario,
-        contraseña: req.body.contraseña,
-        id_rol: req.body.id_rol,
+        contrasena: req.body.contrasena,
+        id_rol: 1,
 
     };
 
@@ -965,7 +966,7 @@ app.post('/ruvi/registro-usuarios', (req, res) => {
                                                   telefono='${dato.telefono}',
                                                   correo='${dato.correo}',
                                                   usuario='${dato.usuario}',
-                                                  contraseña='${dato.contraseña}',
+                                                  contrasena='${dato.contrasena}',
                                                   id_rol='${dato.id_rol}'`;
 
     db.query(sql, (error, result) => {
