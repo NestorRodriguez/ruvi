@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'tiempo-labor', loadChildren: './tiempo-labor/tiempo-labor.module#TiempoLaborPageModule' },
   { path: 'sitio-labor', loadChildren: './sitio-labor/sitio-labor.module#SitioLaborPageModule' },
   { path: 'menu', loadChildren: './menu/menu.module#MenuPageModule' },
-  { path: 'registro-usuario', loadChildren: './registro-usuario/registro-usuario.module#RegistroUsuarioPageModule' },
+  { path: 'registro-usuario', loadChildren: './registro-usuario/registro-usuario.module#RegistroUsuarioPageModule' },  { path: 'consulta', loadChildren: './consulta/consulta.module#ConsultaPageModule' },
+
 ];
 @NgModule({
   imports: [

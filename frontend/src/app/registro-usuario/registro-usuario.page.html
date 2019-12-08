@@ -12,75 +12,72 @@
 </ion-header>
 
 <ion-content>
-    <form (ngSubmit)="registroUsu(formulario)" #formulario="ngForm">
-        <ion-list>
 
-            <ion-item>
-                <ion-label position="floating">* Nombres
-                    <ion-text color="danger"></ion-text>
-                </ion-label>
-                <ion-input [(ngModel)]="model.nombres" name="nombres" type="text" required value=""></ion-input>
-            </ion-item>
+    <ion-list>
 
-            <ion-item>
-                <ion-label position="floating">* Apellidos
-                    <ion-text color="danger"></ion-text>
-                </ion-label>
-                <ion-input [(ngModel)]="model.apellidos" name="apellidos" type="text" required value=""></ion-input>
-            </ion-item>
+        <ion-item>
+            <ion-label position="floating">* Nombres
+                <ion-text color="danger"></ion-text>
+            </ion-label>
+            <ion-input [(ngModel)]="nombre" type="text" required value=""></ion-input>
+        </ion-item>
 
-            <ion-item>
-                <ion-label position="floating">* Edad
-                    <ion-text color="danger"></ion-text>
-                </ion-label>
-                <ion-input [(ngModel)]="model.edad" name="edad" type="text" required value=""></ion-input>
-            </ion-item>
+        <ion-item>
+            <ion-label position="floating">* Apellidos
+                <ion-text color="danger"></ion-text>
+            </ion-label>
+            <ion-input [(ngModel)]="apellido" type="text" required value=""></ion-input>
+        </ion-item>
 
-            <ion-item>
-                <ion-label>* Sexo</ion-label>
-                <ion-select [(ngModel)]="model.sexo" name="sexo" required interface="popover">
-                    <ion-select-option value="Masculino">Masculino</ion-select-option>
-                    <ion-select-option value="Femenino">Femenino</ion-select-option>
-                </ion-select>
-            </ion-item>
+        <ion-item>
+            <ion-label position="floating">* Edad
+                <ion-text color="danger"></ion-text>
+            </ion-label>
+            <ion-input [(ngModel)]="edad" type="text" required value=""></ion-input>
+        </ion-item>
 
-            <ion-item>
-                <ion-label position="floating">* Teléfono
-                    <ion-text color="danger"></ion-text>
-                </ion-label>
-                <ion-input [(ngModel)]="model.numero" name="numero" type="number" required value=""></ion-input>
-            </ion-item>
+        <ion-item>
+            <ion-label>* Sexo</ion-label>
+            <ion-select [(ngModel)]="sexo" name="sexo" required interface="popover">
+                <ion-select-option value="Masculino">Masculino</ion-select-option>
+                <ion-select-option value="Femenino">Femenino</ion-select-option>
+            </ion-select>
+        </ion-item>
 
-            <ion-item>
-                <ion-label position="floating">* Correo
-                    <ion-text color="danger"></ion-text>
-                </ion-label>
-                <ion-input [(ngModel)]="model.email" name="email" type="text" required value=""></ion-input>
-            </ion-item>
+        <ion-item>
+            <ion-label position="floating">* Teléfono
+                <ion-text color="danger"></ion-text>
+            </ion-label>
+            <ion-input [(ngModel)]="telefono" type="number" required value=""></ion-input>
+        </ion-item>
 
-            <ion-item>
-                <ion-label position="floating">* Usuario
-                    <ion-text color="danger"></ion-text>
-                </ion-label>
-                <ion-input [(ngModel)]="model.usu" name="usu" type="text" required value=""></ion-input>
-            </ion-item>
+        <ion-item>
+            <ion-label position="floating">* Correo
+                <ion-text color="danger"></ion-text>
+            </ion-label>
+            <ion-input [(ngModel)]="correo" type="text" required value=""></ion-input>
+        </ion-item>
 
-            <ion-item>
-                <ion-label position="floating">* Contraseña
-                    <ion-text color="danger"></ion-text>
-                </ion-label>
-                <ion-input [(ngModel)]="model.password" name="password" type="text" required value=""></ion-input>
-            </ion-item>
+        <ion-item>
+            <ion-label position="floating">* Usuario
+                <ion-text color="danger"></ion-text>
+            </ion-label>
+            <ion-input [(ngModel)]="usuario" type="text" required value=""></ion-input>
+        </ion-item>
 
-        </ion-list>
+        <ion-item>
+            <ion-label position="floating">* Contraseña
+                <ion-text color="danger"></ion-text>
+            </ion-label>
+            <ion-input [(ngModel)]="contrasena" type="text" required value=""></ion-input>
+        </ion-item>
 
-        <div>
-            <!-- <ion-button routerLink="/menu" routersDirection="forward">
-                Registrarse
-            </ion-button> -->
-            <ion-button type="submit">
-                Guardar
-            </ion-button>
-        </div>
-    </form>
+    </ion-list>
+
+    <div>
+
+        <ion-button (click)="saveForm()" type="submit">
+            Guardar
+        </ion-button>
+    </div>
 </ion-content>

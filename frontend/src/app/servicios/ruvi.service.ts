@@ -42,6 +42,8 @@ export class RuviService {
   urlSitio = `${environment.url}/sitio-labor`;
   // tslint:disable-next-line: member-ordering
   urlTiempo = `${environment.url}/tiempo-labor`;
+  // tslint:disable-next-line: member-ordering
+  urllogin =  `${environment.url}/login`;
 
 
 
@@ -58,6 +60,13 @@ export class RuviService {
 
   getUsers(usuario): Observable<any[]> {
     return this.http.get<any[]>(this.urlUsers + '/' + usuario).pipe(
+      tap(data => console.log(JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  getLogin(usuario, contrasena): Observable<any[]> {
+    return this.http.get<any[]>(this.urllogin + '/' + usuario + '/' + contrasena).pipe(
       tap(data => console.log(JSON.stringify(data))),
       catchError(this.handleError)
     );

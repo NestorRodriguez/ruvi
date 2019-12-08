@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { RuviService } from '../servicios/ruvi.service';
+import { element } from 'protractor';
+import { isNull } from 'util';
 
 @Component({
 
@@ -14,21 +16,23 @@ export class LoginPage implements OnInit {
 
   registros: any[] = [];
   errorMessage = '';
-
-  constructor(private router: Router, 
-              public alertController: AlertController, 
+public usuario: string;
+public contrasena: string;
+datos: any;
+items: any = [];
+  constructor(private router: Router,
+              public alertController: AlertController,
               private sendData: RuviService,
-              private loadingCtrl : LoadingController,
+              private loadingCtrl: LoadingController, private ruviservice: RuviService, private navCtrl: NavController
               ) { }
   model: any = {};
-  
   ngOnInit() {
     this.model = {
       email : null,
       clave : null
     };
   }
-  
+
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Error',
@@ -38,7 +42,18 @@ export class LoginPage implements OnInit {
 
     await alert.present();
   }
-  
+
+  async presentinvalido() {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Usuario o contraseña invalido',
+      buttons: ['OK']
+    });
+    this.contrasena = '';
+    this.usuario = '';
+    await alert.present();
+  }
+
   public async login( forma: NgForm ) {
     if (forma.valid) {
       const loading = await this.loadingCtrl.create({
@@ -46,18 +61,17 @@ export class LoginPage implements OnInit {
         spinner: 'bubbles'
       });
       loading.present();
-      console.log(this.model.Usuario);
-      console.log(this.model.Contrasena);
       loading.dismiss();
-      //this.sendData.obtenerData(this.model);
-      //this.router.navigateByUrl('registro-documento');
-      this.sendData.getUsers(this.model).subscribe(data => {
+      this.sendData.getLogin(this.usuario, this.contrasena).subscribe(data => {
         console.log(data);
+        if ( isNull(data)) {
+          this.presentinvalido();
+        } else {
+        console.log(this.items);
+        this.navCtrl.navigateRoot('menu'); }
       });
-    }
-    else {
+    } else {
       this.presentAlert();
-
     }
   }
 }

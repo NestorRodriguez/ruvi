@@ -63,7 +63,7 @@ public registro_rivi: string;
 
   getConsulta() {
     this.ruviService.getRegistroDocumento().subscribe(response => {
-      this.getConsulta();
+
       console.log(response);
     });
   }
@@ -84,7 +84,7 @@ public registro_rivi: string;
       registro_rivi: this.registro_rivi
     };
     this.ruviService.setRegistroDocumento(data).subscribe(response => {
-      this.getConsulta();
+ 
       console.log(response);
     });
   }
@@ -105,7 +105,7 @@ public registro_rivi: string;
       registro_rivi: this.registro_rivi,
     };
     this.ruviService.putRegistroDocumento(data).subscribe(response => {
-      this.getConsulta();
+
       console.log(response);
     });
   }

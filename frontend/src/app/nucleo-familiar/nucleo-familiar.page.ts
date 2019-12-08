@@ -28,6 +28,7 @@ public id: string;
     ngOnInit() {
       this.getConsulta();
     }
+
     Aceptar() {
       this.ruvi.nucleo_familiar = this.id_nucleofam;
       this.ruviService.SaveLocalStorageItem(
@@ -44,7 +45,6 @@ public id: string;
 
     getConsulta() {
       this.ruviService.getFamilia().subscribe(response => {
-        this.getConsulta();
         console.log(response);
       });
     }
@@ -62,7 +62,7 @@ public id: string;
         descripcion: this.descripcion
       };
       this.ruviService.setFamilia(data).subscribe(response => {
-        this.getConsulta();
+
         console.log(response);
       });
     }
@@ -79,7 +79,7 @@ public id: string;
         descripcion: this.descripcion
       };
       this.ruviService.putFamilia(data).subscribe(response => {
-        this.getConsulta();
+
         console.log(response);
       });
     }

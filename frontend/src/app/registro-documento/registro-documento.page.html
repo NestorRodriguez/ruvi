@@ -12,38 +12,29 @@
 </ion-header>
 
 <ion-content>
-    <form (ngSubmit)="registroDocu(formulario)" #formulario="ngForm">
+    <ion-item>
+        <ion-label>Tipo de Documento</ion-label>
+        <ion-select [(ngModel)]="tipo_documento" required interface="popover">
+            <ion-select-option value="Cédula de Ciudadania">Cédula Ciudadania</ion-select-option>
+            <ion-select-option value="Cédula de Extranjeria">Cédula Extranjeria</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Numero de Documento</ion-label>
+        <ion-input [(ngModel)]="numero_documento" type="number" required value=""></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Registrado RIVI</ion-label>
+        <ion-select [(ngModel)]="registro_rivi" required interface="popover">
+            <ion-select-option value="Si">Si</ion-select-option>
+            <ion-select-option value="No">No</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div>
+        <!-- <ion-button routerLink="/datos-personales" routersDirection="forward"> -->
+        <ion-button (click)="saveForm()" type="submit">
+            Guardar
+        </ion-button>
+    </div>
 
-        <ion-item>
-            <ion-label>Tipo de Documento</ion-label>
-            <ion-select [(ngModel)]="model.tipoDoc" name="tipoDoc" required interface="popover">
-                <ion-select-option value="Cédula de Ciudadania">Cédula Ciudadania</ion-select-option>
-                <ion-select-option value="Cédula de Extranjeria">Cédula Extranjeria</ion-select-option>
-            </ion-select>
-        </ion-item>
-
-
-
-        <ion-item>
-            <ion-label position="floating">Numero de Documento</ion-label>
-            <ion-input [(ngModel)]="model.numerodoc" name="numerodoc" type="number" required value=""></ion-input>
-        </ion-item>
-
-
-
-        <ion-item>
-            <ion-label>Registrado RIVI</ion-label>
-            <ion-select [(ngModel)]="model.rivi" name="rivi" required interface="popover">
-                <ion-select-option value="Si">Si</ion-select-option>
-                <ion-select-option value="No">No</ion-select-option>
-            </ion-select>
-        </ion-item>
-
-        <div>
-            <!-- <ion-button routerLink="/datos-personales" routersDirection="forward"> -->
-            <ion-button type="submit">
-                Guardar
-            </ion-button>
-        </div>
-    </form>
 </ion-content>

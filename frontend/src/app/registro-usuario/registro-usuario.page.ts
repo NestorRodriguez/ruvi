@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController , NavController} from '@ionic/angular';
 import { RuviService } from '../servicios/ruvi.service';
 
 @Component({
@@ -33,7 +33,7 @@ public id_rol: string;
   constructor(
     private router: Router,
     private loadingController: LoadingController,
-    private ruviService: RuviService) { }
+    private ruviService: RuviService, private navcontrol: NavController) { }
 
   ngOnInit() {
     this.model = {
@@ -47,10 +47,6 @@ public id_rol: string;
       password: null
     };
   }
-    registroUsu(form: NgForm) {
-    console.log(this.model);
-     }
-
      Aceptar() {
       this.ruvi.registro_usuarios = this.id_registrousu;
       this.ruviService.SaveLocalStorageItem(
@@ -59,9 +55,11 @@ public id_rol: string;
       );
       this.router.navigateByUrl('/ruvi/registro-usuarios');
     }
+
     testRadio() {
       console.log(this.id_registrousu);
     }
+
     getConsulta() {
       this.ruviService.getRegistroUsuarios().subscribe(response => {
         this.getConsulta();
@@ -77,6 +75,7 @@ public id_rol: string;
           this.consulta = estadoActual;
         }, error => this.errorMessage = error);
     }
+
       saveForm() {
       const data = {
         nombre: this.nombre,
@@ -89,10 +88,11 @@ public id_rol: string;
         contrasena: this.contrasena,
         id_rol: this.id_rol
       };
+      console.log(data);
       this.ruviService.setRegistroUsuarios(data).subscribe(response => {
-        this.getConsulta();
-        console.log(response);
-      });
+          console.log(response);
+          this.navcontrol.navigateRoot('menu');
+        });
     }
 
     deleteForm(id: string) {
@@ -117,8 +117,8 @@ public id_rol: string;
         id_rol: this.id_rol
       };
       this.ruviService.putRegistroDocumento(data).subscribe(response => {
-        this.getConsulta();
-        console.log(response);
+          console.log(response);
       });
     }
+
   }
