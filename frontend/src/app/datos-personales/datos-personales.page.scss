@@ -17,15 +17,15 @@ ion-header>ion-toolbar>ion-buttons>ion-button>ion-icon {
     height: 100%;
 }
 
-ion-content>form>ion-list>ion-item>ion-label {
+ion-content>ion-list>ion-item>ion-label {
     color: #FFFFFF;
 }
 
 ion-content {
-    margin: 1vh 0vw 0vh 0vw;
+    margin: 0vh 0vw 0vh 0vw;
 }
 
-ion-content>form>div>ion-button {
+ion-content>div>ion-button {
     --border-radius: 7vw;
     --background: var(--ion-color-secondary);
     --color: var(--ion-color-primary);

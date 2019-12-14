@@ -43,8 +43,8 @@ public id_rol: string;
       sexo: null,
       numero: null,
       email: null,
-      usu: null,
-      password: null
+      usuario: null,
+      contrasena: null
     };
   }
      Aceptar() {
@@ -53,7 +53,6 @@ public id_rol: string;
         'ruvi',
         JSON.stringify(this.ruvi)
       );
-      this.router.navigateByUrl('/ruvi/registro-usuarios');
     }
 
     testRadio() {
@@ -91,7 +90,7 @@ public id_rol: string;
       console.log(data);
       this.ruviService.setRegistroUsuarios(data).subscribe(response => {
           console.log(response);
-          this.navcontrol.navigateRoot('menu');
+          this.navcontrol.navigateRoot('login');
         });
     }
 

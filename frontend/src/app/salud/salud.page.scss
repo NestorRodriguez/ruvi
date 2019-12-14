@@ -11,6 +11,10 @@ ion-header>ion-toolbar>ion-title {
     font-size: 6vw;
 }
 
+ion-content>ion-list>ion-item>ion-label {
+    color: #FFFFFF;
+}
+
 ion-header>ion-toolbar>ion-buttons>ion-button>ion-icon {
     color: #FFFFFF;
     width: 100%;

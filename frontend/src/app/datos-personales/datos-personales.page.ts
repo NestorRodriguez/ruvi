@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { isNull } from 'util';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { RuviService } from '../servicios/ruvi.service';
 
 
@@ -30,22 +31,24 @@ public correo: string;
 public discapacidad: string;
 public desplazado: string;
 
+
 constructor(
   private router: Router,
   private loadingController: LoadingController,
   private ruviService: RuviService) { }
 
  ngOnInit() {
+  this.getConsulta();
   this.model = {
-    nombre: null,
-    apellido: null,
+    nombres: null,
+    apellidos: null,
     edad: null,
     sexo: null,
     direccion: null,
-    numero: null,
+    telefono: null,
     correo: null,
-    disc: null,
-    desp: null
+    discapacidad: null,
+    desplazado: null
   };
 
 }
@@ -58,7 +61,7 @@ console.log(this.model);
     'ruvi',
     JSON.stringify(this.ruvi)
   );
-  this.router.navigateByUrl('/ruvi/usuario');
+  this.router.navigateByUrl('/ruvi/salud');
 }
 testRadio() {
   console.log(this.id_datos);
@@ -66,7 +69,6 @@ testRadio() {
 
 getConsulta() {
   this.ruviService.getUsuario().subscribe(response => {
-    this.getConsulta();
     console.log(response);
   });
 }
@@ -90,10 +92,8 @@ getConsultaId(id: string) {
     correo: this.correo,
     discapacidad: this.discapacidad,
     desplazado: this.desplazado
-
   };
   this.ruviService.setUsuario(data).subscribe(response => {
-    this.getConsulta();
     console.log(response);
   });
 }
@@ -119,7 +119,6 @@ actualizarForm() {
     desplazado: this.desplazado
   };
   this.ruviService.putUsuario(data).subscribe(response => {
-    this.getConsulta();
     console.log(response);
   });
 }

@@ -21,10 +21,8 @@ export class SitioLaborPage implements OnInit {
 
   public id: string;
   public direccion: string;
-  public foto: string;
   public producto: string;
- 
-
+  public  tiempoInformal: string;
  constructor(
    private router: Router,
    private loadingController: LoadingController,
@@ -35,9 +33,9 @@ export class SitioLaborPage implements OnInit {
     this.getConsulta();
     this.model = {
       direccion: null,
-      foto : null,
-      producto: null
-    };
+      producto: null,
+      tiempoInformal: null,
+     };
   }
   Aceptar() {
     this.ruvi.sitio_labor = this.id_sitioinf;
@@ -46,7 +44,7 @@ export class SitioLaborPage implements OnInit {
       JSON.stringify(this.ruvi)
     );
 
-    this.router.navigateByUrl('/ruvi/sitio-labor');
+    this.router.navigateByUrl('/ruvi/menu');
   }
 
   testRadio() {
@@ -55,7 +53,6 @@ export class SitioLaborPage implements OnInit {
 
   getConsulta() {
     this.ruviService.getSitioLabor().subscribe(response => {
-      this.getConsulta();
       console.log(response);
     });
   }
@@ -71,11 +68,10 @@ export class SitioLaborPage implements OnInit {
   saveForm() {
     const data = {
       direccion: this.direccion,
-      foto: this.foto,
-      producto: this.producto
+      producto: this.producto,
+      tiempoInformal: this.tiempoInformal,
     };
     this.ruviService.setSitioLabor(data).subscribe(response => {
-      this.getConsulta();
       console.log(response);
     });
   }
@@ -89,11 +85,10 @@ export class SitioLaborPage implements OnInit {
   actualizarForm() {
     const data = {
       direccion: this.direccion,
-      foto: this.foto,
-      producto: this.producto
+      producto: this.producto,
+      tiempoInformal: this.tiempoInformal,
     };
     this.ruviService.putSitioLabor(data).subscribe(response => {
-      this.getConsulta();
       console.log(response);
     });
   }

@@ -19,19 +19,11 @@ export class RuviService {
   // tslint:disable-next-line: member-ordering
   environment = { url : 'http://localhost:3000/ruvi'};
   // tslint:disable-next-line: member-ordering
-  urlUsers =  `${environment.url}/users`;
-  // tslint:disable-next-line: member-ordering
   urlUsuario = `${environment.url}/usuario`;
 // tslint:disable-next-line: member-ordering
-  urlEducacion = `${environment.url}/niveles-educacion`;
-  // tslint:disable-next-line: member-ordering
   urlGuardarRegistro = `${environment.url}/guardar-registro`;
   // tslint:disable-next-line: member-ordering
-  urlFamilia = `${environment.url}/nucleo-familiar`;
-  // tslint:disable-next-line: member-ordering
   urlRoles = `${environment.url}/roles`;
-// tslint:disable-next-line: member-ordering
-  urlVivienda = `${environment.url}/vivienda`;
 // tslint:disable-next-line: member-ordering
   urlRegistroDocumento = `${environment.url}/registro-documento`;
   // tslint:disable-next-line: member-ordering
@@ -40,8 +32,6 @@ export class RuviService {
   urlRegistroUsuarios = `${environment.url}/registro-usuarios`;
   // tslint:disable-next-line: member-ordering
   urlSitio = `${environment.url}/sitio-labor`;
-  // tslint:disable-next-line: member-ordering
-  urlTiempo = `${environment.url}/tiempo-labor`;
   // tslint:disable-next-line: member-ordering
   urllogin =  `${environment.url}/login`;
 
@@ -58,12 +48,7 @@ export class RuviService {
     return this.data;
   }
 
-  getUsers(usuario): Observable<any[]> {
-    return this.http.get<any[]>(this.urlUsers + '/' + usuario).pipe(
-      tap(data => console.log(JSON.stringify(data))),
-      catchError(this.handleError)
-    );
-  }
+ 
 
   getLogin(usuario, contrasena): Observable<any[]> {
     return this.http.get<any[]>(this.urllogin + '/' + usuario + '/' + contrasena).pipe(
@@ -107,36 +92,8 @@ export class RuviService {
   }
 
 
-  // Niveles de Educacion
-  getEducacion(): Observable<any[]> {
-
-    return this.http.get<any[]>(this.urlEducacion).pipe(
-      tap(data => console.log(JSON.stringify(data))),
-      catchError(this.handleError)
-    );
-  }
-
-  setEducacion(data: any) {
-    return this.http.post(this.urlEducacion, data);
-  }
-
-  getRuviEducacion(id: string) {
-     return this.http.get(`${this.urlEducacion}/${id}`);
-   }
-
-  putEducacion(data: any) {
-    console.log(data);
-    return this.http.put(this.urlEducacion, data);
-  }
-
-  deleteEducacion(id: string) {
-    console.log(`${this.urlEducacion}/${id}`);
-    return this.http.delete(`${this.urlEducacion}/${id}`);
-  }
 
   // Guardar Registro
-
-
   getGuardarRegistro(): Observable<any[]> {
 
     return this.http.get<any[]>(this.urlGuardarRegistro).pipe(
@@ -162,36 +119,6 @@ export class RuviService {
     console.log(`${this.urlGuardarRegistro}/${id}`);
     return this.http.delete(`${this.urlGuardarRegistro}/${id}`);
   }
-
-// Nucleo familiar
-
-getFamilia(): Observable<any[]> {
-
-  return this.http.get<any[]>(this.urlFamilia).pipe(
-    tap(data => console.log(JSON.stringify(data))),
-    catchError(this.handleError)
-  );
-}
-
-setFamilia(data: any) {
-  return this.http.post(this.urlFamilia, data);
-}
-
-getRuviFamilia(id: string) {
-  return this.http.get(`${this.urlFamilia}/${id}`);
-}
-
-putFamilia(data: any) {
-  console.log(data);
-  return this.http.put(this.urlFamilia, data);
-}
-
-deleteFamilia(id: string) {
-  console.log(`${this.urlFamilia}/${id}`);
-  return this.http.delete(`${this.urlFamilia}/${id}`);
-}
-
-
 // Roles
 getRoles(): Observable<any[]> {
 
@@ -219,33 +146,6 @@ deleteRoles(id: string) {
   return this.http.delete(`${this.urlRoles}/${id}`);
 }
 
-
-// Vivienda
-getVivienda(): Observable<any[]> {
-
-  return this.http.get<any[]>(this.urlVivienda).pipe(
-    tap(data => console.log(JSON.stringify(data))),
-    catchError(this.handleError)
-  );
-}
-
-setVivienda(data: any) {
-  return this.http.post(this.urlVivienda, data);
-}
-
-getRuviVivienda(id: string) {
-   return this.http.get(`${this.urlVivienda}/${id}`);
-}
-
-putVivienda(data: any) {
-  console.log(data);
-  return this.http.put(this.urlVivienda, data);
-}
-
-deleteVivienda(id: string) {
-  console.log(`${this.urlVivienda}/${id}`);
-  return this.http.delete(`${this.urlVivienda}/${id}`);
-}
 
 
 // Registro Documento
@@ -358,32 +258,7 @@ deleteSitioLabor(id: string) {
   return this.http.delete(`${this.urlSitio}/${id}`);
 }
 
-//  Tiempo de labor
-getTiempoLabor(): Observable<any[]> {
 
-  return this.http.get<any[]>(this.urlTiempo).pipe(
-    tap(data => console.log(JSON.stringify(data))),
-    catchError(this.handleError)
-  );
-}
-
-setTiempoLabor(data: any) {
-  return this.http.post(this.urlTiempo, data);
-}
-
-getRuviTiempoLabor(id: string) {
-   return this.http.get(`${this.urlTiempo}/${id}`);
- }
-
-putTiempoLabor(data: any) {
-  console.log(data);
-  return this.http.put(this.urlTiempo, data);
-}
-
-deleteTiempoLabor(id: string) {
-  console.log(`${this.urlTiempo}/${id}`);
-  return this.http.delete(`${this.urlTiempo}/${id}`);
-}
 
 private handleError(err: HttpErrorResponse) {
   let errorMessage = '';

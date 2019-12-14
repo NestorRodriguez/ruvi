@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-button routerLink="/tiempo-labor" routersDirection="back">
+            <ion-button routerLink="/salud" routersDirection="back">
                 <!--  enrutar a la otra vista -->
                 <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
             </ion-button>
@@ -11,49 +11,72 @@
 </ion-header>
 
 <ion-content>
-    <form (ngSubmit)="enviarData(forma)" #forma="ngForm">
-        <ion-list>
-            <ion-item>
-                <ion-label position="floating">Dirección donde Labora Informalmente
-                    <ion-text color="danger"></ion-text>
-                </ion-label>
-                <ion-input [(ngModel)]="model.direccion" minlength="9" required name="direccion" type="text"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label position="floating">Producto que Comercializa
-                    <ion-text color="danger"></ion-text>
-                </ion-label>
-                <ion-input [(ngModel)]="model.producto" minlength="5" required name="producto" type="text"></ion-input>
-            </ion-item>
-            <ion-item lines="">
-                <div>
-                    <ion-label><b>Foto</b></ion-label>
-                </div>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col size="4" *ngIf="model.foto">
-                            <ion-button size="small" shape="round">
-                                <ion-icon slot="icon-only" name="checmark"></ion-icon>
-                            </ion-button>
-                        </ion-col>
-                        <ion-col>
-                            <ion-button size="small" shape="round" expand="block" (click)="loadCamera()">
-                                <ion-icon slot="icon-only" name="camera"></ion-icon>
-                            </ion-button>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-item>
-        </ion-list>
-        <div>
-            <!-- <ion-button type="submit" routerLink="/menu" routersDirection="forward" [disabled]="!formulario.valid">
-                Guardar
-            </ion-button> -->
-            <ion-button type="submit">
-                Registrarse
-            </ion-button>
+
+    <ion-list>
+        <ion-item>
+            <ion-label>Tiempo de Labor Informal</ion-label>
+            <ion-select [(ngModel)]="tiempoInformal" required interface="popover">
+                <ion-select-option value="Menos de 1 año">Menos de 1 año</ion-select-option>
+                <ion-select-option value="2 años">2 años</ion-select-option>
+                <ion-select-option value="3 años">3 años</ion-select-option>
+                <ion-select-option value="5 años">5 años</ion-select-option>
+                <ion-select-option value="10 años">10 años</ion-select-option>
+                <ion-select-option value="Mas">Más</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <!-- <ion-item>
+            <ion-label>Nivel de Educacion</ion-label>
+            <ion-select [(ngModel)]="educacion" required interface="popover">
+                <ion-select-option value="Primaria">Primaria</ion-select-option>
+                <ion-select-option value="Secundaria">Secundaria</ion-select-option>
+                <ion-select-option value="Tecnico">Técnico</ion-select-option>
+                <ion-select-option value="Tecnologo">Tecnólogo</ion-select-option>
+                <ion-select-option value="Profesional">Profesional</ion-select-option>
+                <ion-select-option value="Ninguno">NInguno</ion-select-option>
+
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Nucleo Familiar</ion-label>
+            <ion-select [(ngModel)]="familia" required interface="popover">
+                <ion-select-option value="Padre">Padres</ion-select-option>
+                <ion-select-option value="PadresH">Padres y Hermanos</ion-select-option>
+                <ion-select-option value="Conyuge">Conyuge </ion-select-option>
+                <ion-select-option value="ConyugeH">Conyuge e Hijo(s)</ion-select-option>
+                <ion-select-option value="Hijos">Hijo(s)</ion-select-option>
+                <ion-select-option value="Otro">Soltero(a)</ion-select-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Vivienda</ion-label>
+            <ion-select [(ngModel)]="vivienda" required interface="popover">
+                <ion-select-option value="Propio">Propio</ion-select-option>
+                <ion-select-option value="Arriendo">Arriendo</ion-select-option>
+            </ion-select>
+        </ion-item> -->
+
+        <ion-item>
+            <ion-label position="floating">Dirección donde Labora Informalmente
+                <ion-text color="danger"></ion-text>
+            </ion-label>
+            <ion-input [(ngModel)]="direccion" minlength="9" required name="direccion" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">Producto que Comercializa
+                <ion-text color="danger"></ion-text>
+            </ion-label>
+            <ion-input [(ngModel)]="producto" minlength="5" required name="producto" type="text"></ion-input>
+        </ion-item>
+
+    </ion-list>
+    <div>
+
+        <ion-button (click)="saveForm()" type="submit" routerLink="/menu" routersDirection="forward">
+            Guardar
+        </ion-button>
 
 
-        </div>
-    </form>
+    </div>
 </ion-content>

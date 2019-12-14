@@ -7,14 +7,13 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'registro-documento', loadChildren: './registro-documento/registro-documento.module#RegistroDocumentoPageModule' },
   { path: 'datos-personales', loadChildren: './datos-personales/datos-personales.module#DatosPersonalesPageModule' },
-  { path: 'niveles-educacion', loadChildren: './niveles-educacion/niveles-educacion.module#NivelesEducacionPageModule' },
-  { path: 'nucleo-familiar', loadChildren: './nucleo-familiar/nucleo-familiar.module#NucleoFamiliarPageModule' },
   { path: 'salud', loadChildren: './salud/salud.module#SaludPageModule' },
-  { path: 'vivienda', loadChildren: './vivienda/vivienda.module#ViviendaPageModule' },
-  { path: 'tiempo-labor', loadChildren: './tiempo-labor/tiempo-labor.module#TiempoLaborPageModule' },
   { path: 'sitio-labor', loadChildren: './sitio-labor/sitio-labor.module#SitioLaborPageModule' },
   { path: 'menu', loadChildren: './menu/menu.module#MenuPageModule' },
-  { path: 'registro-usuario', loadChildren: './registro-usuario/registro-usuario.module#RegistroUsuarioPageModule' },  { path: 'consulta', loadChildren: './consulta/consulta.module#ConsultaPageModule' },
+  { path: 'registro-usuario', loadChildren: './registro-usuario/registro-usuario.module#RegistroUsuarioPageModule' },
+  { path: 'consulta', loadChildren: './consulta/consulta.module#ConsultaPageModule' },
+  { path: 'consulta-vendedor', loadChildren: './consulta-vendedor/consulta-vendedor.module#ConsultaVendedorPageModule' },
+
 
 ];
 @NgModule({

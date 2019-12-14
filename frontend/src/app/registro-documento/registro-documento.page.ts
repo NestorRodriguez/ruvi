@@ -35,9 +35,9 @@ public registro_rivi: string;
   ngOnInit() {
     this.getConsulta();
     this.model = {
-      tipoDoc: null,
-      numerodoc: null,
-      rivi: null
+      tipo_documento: null,
+      numero_documento: null,
+      registro_rivi: null
     };
 
   }
@@ -54,7 +54,7 @@ public registro_rivi: string;
     );
 
 
-    this.router.navigateByUrl('/ruvi/niveles-educacion');
+    this.router.navigateByUrl('/ruvi/datos-personales');
   }
 
   testRadio() {
@@ -63,8 +63,7 @@ public registro_rivi: string;
 
   getConsulta() {
     this.ruviService.getRegistroDocumento().subscribe(response => {
-
-      console.log(response);
+    console.log(response);
     });
   }
 
@@ -84,7 +83,7 @@ public registro_rivi: string;
       registro_rivi: this.registro_rivi
     };
     this.ruviService.setRegistroDocumento(data).subscribe(response => {
- 
+
       console.log(response);
     });
   }
@@ -105,7 +104,6 @@ public registro_rivi: string;
       registro_rivi: this.registro_rivi,
     };
     this.ruviService.putRegistroDocumento(data).subscribe(response => {
-
       console.log(response);
     });
   }

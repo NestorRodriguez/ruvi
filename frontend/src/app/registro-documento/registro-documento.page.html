@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-button routerLink="/login" routersDirection="back">
+            <ion-button routerLink="/menu" routersDirection="back">
                 <!--  enrutar a la otra vista -->
                 <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
             </ion-button>
@@ -32,7 +32,7 @@
     </ion-item>
     <div>
         <!-- <ion-button routerLink="/datos-personales" routersDirection="forward"> -->
-        <ion-button (click)="saveForm()" type="submit">
+        <ion-button (click)="saveForm()" type="submit" routerLink="/datos-personales" routersDirection="forward">
             Guardar
         </ion-button>
     </div>

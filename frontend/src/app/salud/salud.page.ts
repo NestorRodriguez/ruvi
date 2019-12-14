@@ -22,7 +22,8 @@ export class SaludPage implements OnInit {
   public id: string;
   // tslint:disable-next-line: variable-name
   public nombre_eps: string;
-  public descripcion: string;
+  // tslint:disable-next-line: variable-name
+  public regimen_afiliacion: string;
 
   constructor(
     private router: Router,
@@ -32,6 +33,11 @@ export class SaludPage implements OnInit {
 
   ngOnInit() {
     this.getConsulta();
+    this.model = {
+      nombre_eps: null,
+      regimen_afiliacion: null
+
+    };
   }
   Aceptar() {
     this.ruvi.salud = this.id_saludper;
@@ -40,7 +46,7 @@ export class SaludPage implements OnInit {
       JSON.stringify(this.ruvi)
     );
 
-    this.router.navigateByUrl('/ruvi/salud');
+    this.router.navigateByUrl('/ruvi/sitio-labor');
   }
 
   testRadio() {
@@ -49,7 +55,6 @@ export class SaludPage implements OnInit {
 
   getConsulta() {
     this.ruviService.getSalud().subscribe(response => {
-      this.getConsulta();
       console.log(response);
     });
   }
@@ -65,10 +70,9 @@ export class SaludPage implements OnInit {
   saveForm() {
     const data = {
       nombre_eps: this.nombre_eps,
-      descripcion: this.descripcion
+      regimen_afiliacion: this.regimen_afiliacion
     };
     this.ruviService.setSalud(data).subscribe(response => {
-      this.getConsulta();
       console.log(response);
     });
   }
@@ -82,11 +86,10 @@ export class SaludPage implements OnInit {
   actualizarForm() {
     const data = {
       id_saludper: this.id,
-      descripcion: this.descripcion,
-      nombre_eps: this.nombre_eps
+      nombre_eps: this.nombre_eps,
+      regimen_afiliacion: this.regimen_afiliacion
     };
     this.ruviService.putSalud(data).subscribe(response => {
-      this.getConsulta();
       console.log(response);
     });
   }

@@ -21,7 +21,7 @@ ion-list {
     margin: 4vh 0vw 0vh 0vw;
 }
 
-ion-content>form>div>ion-button {
+ion-content>div>ion-button {
     --border-radius: 7vw;
     --background: var(--ion-color-secondary);
     --color: var(--ion-color-primary);
@@ -29,6 +29,6 @@ ion-content>form>div>ion-button {
     width: 50vw;
 }
 
-ion-content>form>ion-list>ion-item>ion-label {
+ion-content>ion-list>ion-item>ion-label {
     color: #FFFFFF;
 }
